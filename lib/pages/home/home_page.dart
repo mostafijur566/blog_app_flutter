@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                               ),
 
                               Padding(
-                                padding:  EdgeInsets.only(left: screenWidth * 0.02, right: screenWidth * 0.02),
+                                padding:  EdgeInsets.only(right: screenWidth * 0.02),
                                 child: Text(
                                   '@mosta',
                                   style: TextStyle(
