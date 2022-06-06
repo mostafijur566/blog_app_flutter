@@ -1,7 +1,9 @@
+import 'package:blog_app_flutter/pages/account/account_page.dart';
 import 'package:blog_app_flutter/pages/auth/sign_in_page.dart';
 import 'package:blog_app_flutter/pages/auth/sign_up_page.dart';
 import 'package:blog_app_flutter/pages/comment/comment_page.dart';
 import 'package:blog_app_flutter/pages/home/home_page.dart';
+import 'package:blog_app_flutter/pages/home/nav_bar.dart';
 import 'package:blog_app_flutter/pages/post/post_page.dart';
 import 'package:blog_app_flutter/pages/splash_screen/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: CommentPage(),
+      home: NavBar(),
     );
   }
 }

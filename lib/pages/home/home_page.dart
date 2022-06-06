@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
               height: 32,
             ),
             Container(
-                padding: const EdgeInsets.all(8.0), child: Text('BLOGO', style: TextStyle(color: AppColors.userNameColor),))
+                padding: const EdgeInsets.all(8.0), child: Text('BLOGO', style: TextStyle(color: AppColors.userNameColor, fontSize: screenHeight * 0.028,),))
           ],
 
         ),
