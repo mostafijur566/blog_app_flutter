@@ -12,6 +12,9 @@ class PostPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: AppColors.mainColor, //change your color here
+        ),
         backgroundColor: Colors.white,
         title: Text('Create post',
           style: TextStyle(color: AppColors.userNameColor),
