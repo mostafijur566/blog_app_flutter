@@ -1,15 +1,18 @@
 import 'package:blog_app_flutter/pages/account/account_page.dart';
+import 'package:blog_app_flutter/pages/account/user_profile_page.dart';
 import 'package:blog_app_flutter/pages/auth/sign_in_page.dart';
 import 'package:blog_app_flutter/pages/auth/sign_up_page.dart';
 import 'package:blog_app_flutter/pages/comment/comment_page.dart';
 import 'package:blog_app_flutter/pages/home/home_page.dart';
 import 'package:blog_app_flutter/pages/home/nav_bar.dart';
 import 'package:blog_app_flutter/pages/post/post_page.dart';
+import 'package:blog_app_flutter/pages/post/user_post_page.dart';
 import 'package:blog_app_flutter/pages/splash_screen/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -34,7 +37,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: NavBar(),
+      home: HomePage(),
     );
   }
 }

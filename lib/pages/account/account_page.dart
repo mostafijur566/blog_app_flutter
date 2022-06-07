@@ -39,55 +39,57 @@ class AccountPage extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.02,
             ),
-            SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  AccountWidget(appIcon: AppIcon(
-                    icon: Icons.person,
-                    backgroundColor: AppColors.mainColor,
-                    iconColor: Colors.white,
-                    iconSize: screenHeight * 0.015 * 5 / 2,
-                    size: screenHeight * 0.01 * 5,
-                  ), text: 'Name'),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  AccountWidget(appIcon: AppIcon(
-                    icon: Icons.verified_user,
-                    backgroundColor: AppColors.iconColor,
-                    iconColor: Colors.white,
-                    iconSize: screenHeight * 0.015 * 5 / 2,
-                    size: screenHeight * 0.01 * 5,
-                  ),
-                      text: 'Username'),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    AccountWidget(appIcon: AppIcon(
+                      icon: Icons.person,
+                      backgroundColor: AppColors.mainColor,
+                      iconColor: Colors.white,
+                      iconSize: screenHeight * 0.015 * 5 / 2,
+                      size: screenHeight * 0.01 * 5,
+                    ), text: 'Name'),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    AccountWidget(appIcon: AppIcon(
+                      icon: Icons.verified_user,
+                      backgroundColor: AppColors.iconColor,
+                      iconColor: Colors.white,
+                      iconSize: screenHeight * 0.015 * 5 / 2,
+                      size: screenHeight * 0.01 * 5,
+                    ),
+                        text: 'Username'),
 
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
 
-                  AccountWidget(appIcon: AppIcon(
-                    icon: Icons.email,
-                    backgroundColor: AppColors.iconColor,
-                    iconColor: Colors.white,
-                    iconSize: screenHeight * 0.015 * 5 / 2,
-                    size: screenHeight * 0.01 * 5,
-                  ),
-                      text: 'Email'),
+                    AccountWidget(appIcon: AppIcon(
+                      icon: Icons.email,
+                      backgroundColor: AppColors.iconColor,
+                      iconColor: Colors.white,
+                      iconSize: screenHeight * 0.015 * 5 / 2,
+                      size: screenHeight * 0.01 * 5,
+                    ),
+                        text: 'Email'),
 
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
 
-                  AccountWidget(appIcon: AppIcon(
-                    icon: Icons.logout,
-                    backgroundColor: AppColors.mainColor,
-                    iconColor: Colors.white,
-                    iconSize: screenHeight * 0.015 * 5 / 2,
-                    size: screenHeight * 0.01 * 5,
-                  ),
-                      text: 'Log Out'),
-                ],
+                    AccountWidget(appIcon: AppIcon(
+                      icon: Icons.logout,
+                      backgroundColor: AppColors.mainColor,
+                      iconColor: Colors.white,
+                      iconSize: screenHeight * 0.015 * 5 / 2,
+                      size: screenHeight * 0.01 * 5,
+                    ),
+                        text: 'Log Out'),
+                  ],
+                ),
               ),
             )
           ],

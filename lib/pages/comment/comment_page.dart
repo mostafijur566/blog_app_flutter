@@ -1,6 +1,8 @@
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/comment_text_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CommentPage extends StatelessWidget {
   const CommentPage({Key? key}) : super(key: key);
@@ -22,6 +24,18 @@ class CommentPage extends StatelessWidget {
               Container(
                 child: Row(
                   children: [
+                    GestureDetector(
+                      onTap: (){
+                        Get.back();
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(right: screenHeight * 0.01, top: screenHeight * 0.01, bottom: screenHeight * 0.01,),
+                        child: Icon(
+                          CupertinoIcons.chevron_back,
+                          color: AppColors.mainColor,
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: CommentTextField(
                           hintText: 'Write your comment', icon: Icons.comment),
@@ -65,7 +79,8 @@ class CommentPage extends StatelessWidget {
                             ),
                             Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
                               style: TextStyle(
-                                fontSize: screenHeight * 0.019
+                                fontSize: screenHeight * 0.019,
+                                color: AppColors.smallTxtColor
                               ),
                               textAlign: TextAlign.justify,
                             ),

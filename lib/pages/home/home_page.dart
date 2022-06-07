@@ -1,5 +1,6 @@
 import 'package:blog_app_flutter/pages/comment/comment_page.dart';
 import 'package:blog_app_flutter/pages/post/post_page.dart';
+import 'package:blog_app_flutter/pages/post/user_post_page.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/app_text_field.dart';
 import 'package:blog_app_flutter/widgets/expandable_text_widget.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../widgets/comment_text_field.dart';
 import '../../widgets/comment_widget.dart';
+import '../account/user_profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -174,12 +176,17 @@ class _HomePageState extends State<HomePage> {
                               Padding(
                                 padding:
                                     EdgeInsets.only(right: screenWidth * 0.02),
-                                child: Text(
-                                  '@mosta',
-                                  style: TextStyle(
-                                      color: AppColors.userNameColor,
-                                      fontSize: screenHeight * 0.02,
-                                      fontWeight: FontWeight.bold),
+                                child: GestureDetector(
+                                  onTap: (){
+                                    Get.to(UserProfilePage());
+                                  },
+                                  child: Text(
+                                    '@mosta',
+                                    style: TextStyle(
+                                        color: AppColors.userNameColor,
+                                        fontSize: screenHeight * 0.02,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
                             ],
