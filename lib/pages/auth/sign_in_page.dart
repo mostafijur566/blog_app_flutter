@@ -68,11 +68,11 @@ class SignInPage extends StatelessWidget {
               ),
             ),
 
-            AppTextField(hintText: 'Email', icon: Icons.email),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            AppTextField(hideText: true, hintText: 'Password', icon: Icons.password_sharp),
+            // AppTextField(hintText: 'Email', icon: Icons.email),
+            // SizedBox(
+            //   height: screenHeight * 0.02,
+            // ),
+            // AppTextField(hideText: true, hintText: 'Password', icon: Icons.password_sharp),
             SizedBox(
               height: screenHeight * 0.03,
             ),

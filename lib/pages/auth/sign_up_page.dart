@@ -2,13 +2,74 @@ import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/app_text_field.dart';
+import 'package:get/get.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  SignUpPage({Key? key}) : super(key: key);
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController userController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void _registration() {
+    String email = emailController.text.toLowerCase().trim();
+    String user = userController.text.trim();
+    String name = nameController.text.trim();
+    String password = passwordController.text;
+
+    if (email.isEmpty) {
+      Get.snackbar(
+        'Oops!',
+        'Email field cannot be empty!',
+        colorText: Colors.white,
+        backgroundColor: Colors.redAccent,
+      );
+    }
+
+    else if (user.isEmpty) {
+      Get.snackbar(
+        'Oops!',
+        'Username field cannot be empty!',
+        colorText: Colors.white,
+        backgroundColor: Colors.redAccent,
+      );
+    }
+
+    else if (name.isEmpty) {
+      Get.snackbar(
+        'Oops!',
+        'Name field cannot be empty!',
+        colorText: Colors.white,
+        backgroundColor: Colors.redAccent,
+      );
+    }
+
+    else if (password.isEmpty) {
+      Get.snackbar(
+        'Oops!',
+        'Password field cannot be empty!',
+        colorText: Colors.white,
+        backgroundColor: Colors.redAccent,
+      );
+    }
+
+    else if (password.length <= 6) {
+      Get.snackbar(
+        'Oops!',
+        'Password length should be at least 6 character!',
+        colorText: Colors.white,
+        backgroundColor: Colors.redAccent,
+      );
+    }
+
+    else{
+      
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -35,10 +96,10 @@ class SignUpPage extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.03,
               ),
-
               AppTextField(
                 hintText: 'Email',
                 icon: Icons.email,
+                controller: emailController,
               ),
               SizedBox(
                 height: screenHeight * 0.02,
@@ -46,6 +107,7 @@ class SignUpPage extends StatelessWidget {
               AppTextField(
                 hintText: 'Username',
                 icon: Icons.credit_card,
+                controller: userController,
               ),
               SizedBox(
                 height: screenHeight * 0.02,
@@ -53,6 +115,7 @@ class SignUpPage extends StatelessWidget {
               AppTextField(
                 hintText: 'Name',
                 icon: Icons.person,
+                controller: nameController,
               ),
               SizedBox(
                 height: screenHeight * 0.02,
@@ -61,25 +124,30 @@ class SignUpPage extends StatelessWidget {
                 hideText: true,
                 hintText: 'Password',
                 icon: Icons.password_sharp,
+                controller: passwordController,
               ),
               SizedBox(
                 height: screenHeight * 0.03,
               ),
-              Container(
-                width: screenWidth / 2,
-                height: screenHeight / 13,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(screenWidth * 0.3),
-                    color: Colors.white),
-                child: Center(
-                  child: Text(
-                  'Sign In',
-                  style: TextStyle(
-                      color: AppColors.mainColor,
-                      fontSize: screenHeight * 0.03,
-                      fontWeight: FontWeight.bold
+              GestureDetector(
+                onTap: () {
+                  _registration();
+                },
+                child: Container(
+                  width: screenWidth / 2,
+                  height: screenHeight / 13,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(screenWidth * 0.3),
+                      color: Colors.white),
+                  child: Center(
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(
+                          color: AppColors.mainColor,
+                          fontSize: screenHeight * 0.03,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
                 ),
               ),
               SizedBox(
@@ -87,12 +155,11 @@ class SignUpPage extends StatelessWidget {
               ),
               RichText(
                 text: TextSpan(
-                    text: 'Have an account already?',
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                  text: 'Have an account already?',
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
-
               ),
             ],
           ),

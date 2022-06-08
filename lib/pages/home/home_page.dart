@@ -6,6 +6,7 @@ import 'package:blog_app_flutter/widgets/app_text_field.dart';
 import 'package:blog_app_flutter/widgets/expandable_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/comment_text_field.dart';
 import '../../widgets/comment_widget.dart';
 import '../account/user_profile_page.dart';
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     List<String> categories = [
       "All",
       "Food",

@@ -1,14 +1,23 @@
+import 'package:blog_app_flutter/pages/account/user_profile_page.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/comment_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CommentPage extends StatelessWidget {
+class CommentPage extends StatefulWidget {
   const CommentPage({Key? key}) : super(key: key);
 
   @override
+  State<CommentPage> createState() => _CommentPageState();
+}
+
+class _CommentPageState extends State<CommentPage> {
+
+  @override
   Widget build(BuildContext context) {
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -67,11 +76,16 @@ class CommentPage extends StatelessWidget {
                             SizedBox(
                               height: screenHeight * 0.02,
                             ),
-                            Text('@Mosta',
-                              style: TextStyle(
-                                color: AppColors.userNameColor,
-                                fontSize: screenWidth * 0.04,
-                                fontWeight: FontWeight.bold
+                            GestureDetector(
+                              onTap: (){
+                                Get.to(UserProfilePage());
+                              },
+                              child: Text('@mosta',
+                                style: TextStyle(
+                                  color: AppColors.userNameColor,
+                                  fontSize: screenWidth * 0.04,
+                                  fontWeight: FontWeight.bold
+                                ),
                               ),
                             ),
                             SizedBox(

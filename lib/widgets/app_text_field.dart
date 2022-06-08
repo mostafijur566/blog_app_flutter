@@ -5,12 +5,14 @@ class AppTextField extends StatelessWidget {
   AppTextField({Key? key,
     required this.hintText,
     required this.icon,
-    this.hideText = false
+    this.hideText = false,
+    required this.controller
   }) : super(key: key);
 
   final String hintText;
   final IconData icon;
   final bool hideText;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class AppTextField extends StatelessWidget {
       ),
       child: TextField(
         obscureText: hideText,
+        controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: Icon(
