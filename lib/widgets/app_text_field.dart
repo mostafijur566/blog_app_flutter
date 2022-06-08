@@ -1,4 +1,5 @@
 import 'package:blog_app_flutter/utils/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
@@ -28,7 +29,7 @@ class AppTextField extends StatelessWidget {
             color: Color(0xFFE5E3F1).withOpacity(0.2),
           ),
         ],
-        borderRadius: BorderRadius.circular(30)
+        borderRadius: BorderRadius.circular(15)
       ),
       child: TextField(
         obscureText: hideText,
@@ -40,21 +41,21 @@ class AppTextField extends StatelessWidget {
             color: AppColors.mainColor,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(
                 width: 1.0,
                 color: Colors.white
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(
               width: 1.0,
               color: Colors.white
             ),
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30)
+            borderRadius: BorderRadius.circular(15)
           )
         ),
       ),

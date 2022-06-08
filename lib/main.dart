@@ -10,9 +10,11 @@ import 'package:blog_app_flutter/pages/post/user_post_page.dart';
 import 'package:blog_app_flutter/pages/splash_screen/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'helper/dependencies.dart' as dep;
 
-void main() async{
+Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   runApp(const MyApp());
 }
 
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SignUpPage(),
+      home: SignInPage(),
     );
   }
 }
