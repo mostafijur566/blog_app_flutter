@@ -1,5 +1,5 @@
 class AppConstants{
-  static const String TOKEN = "AuthToken";
+  static const String TOKEN = "";
 
   static const String BASE_URL = "https://blog-app-sys.herokuapp.com/";
 
