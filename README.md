@@ -1,2 +1,4 @@
-# blog_app_flutter
+## Blogo - Blog app in flutter
+
+A blog app where an user can share post and comment. 
  
