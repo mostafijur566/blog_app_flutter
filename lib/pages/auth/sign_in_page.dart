@@ -68,7 +68,7 @@ class SignInPage extends StatelessWidget {
       backgroundColor: AppColors.mainColor,
       body: SafeArea(
         child:  GetBuilder<AuthController>(builder: (_authController){
-          return SingleChildScrollView(
+          return !_authController.isLoading ? SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
@@ -185,7 +185,8 @@ class SignInPage extends StatelessWidget {
                 ),
               ],
             ),
-          );
+          ) :
+          Center(child: CircularProgressIndicator(color: Colors.white,));
         })
       ),
     );
