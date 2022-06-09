@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -20,7 +24,10 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin{
 
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
 
-
+    Timer(
+      const Duration(seconds: 3),
+        () => Get.offNamed(RouteHelper.getSignInPage())
+    );
   }
 
   @override

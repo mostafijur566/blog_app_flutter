@@ -8,6 +8,7 @@ import 'package:blog_app_flutter/pages/home/nav_bar.dart';
 import 'package:blog_app_flutter/pages/post/post_page.dart';
 import 'package:blog_app_flutter/pages/post/user_post_page.dart';
 import 'package:blog_app_flutter/pages/splash_screen/splash_page.dart';
+import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Blogo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -39,7 +40,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SignInPage(),
+      // home: SignInPage(),
+
+      initialRoute: RouteHelper.getSplashPage(),
+      getPages: RouteHelper.routes,
+
     );
   }
 }

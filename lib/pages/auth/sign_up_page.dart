@@ -1,8 +1,10 @@
 import 'package:blog_app_flutter/controllers/auth_controller.dart';
 import 'package:blog_app_flutter/models/signup_body.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../routes/route_helper.dart';
 import '../../widgets/app_text_field.dart';
 import 'package:get/get.dart';
 
@@ -167,6 +169,7 @@ class SignUpPage extends StatelessWidget {
                 ),
                 RichText(
                   text: TextSpan(
+                    recognizer: TapGestureRecognizer()..onTap = () => Get.offNamed(RouteHelper.getSignInPage()),
                     text: 'Have an account already?',
                     style: const TextStyle(
                       color: Colors.white,

@@ -1,4 +1,5 @@
 import 'package:blog_app_flutter/models/signin_body.dart';
+import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/app_text_field.dart';
 import 'package:flutter/gestures.dart';
@@ -142,6 +143,7 @@ class SignInPage extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
                     _login(_authController);
+                    Get.offNamed(RouteHelper.getInitial());
                   },
                   child: Container(
                     width: screenWidth / 2,
@@ -173,7 +175,7 @@ class SignInPage extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          //recognizer: //TapGestureRecognizer()..onTap = () => Get.to(() => SignUpPage()),
+                          recognizer: TapGestureRecognizer()..onTap = () => Get.offNamed(RouteHelper.getSignUpPage()),
                           text: ' Create',
                           style: const TextStyle(
                               color: Colors.white,
