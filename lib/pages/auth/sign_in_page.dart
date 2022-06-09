@@ -50,7 +50,7 @@ class SignInPage extends StatelessWidget {
       SignInBody signInBody = SignInBody(username: email, password: password);
       authController.login(signInBody).then((status){
         if(status.isSuccess){
-          print("Success registration");
+          Get.offNamed(RouteHelper.getInitial());
         }
         else{
           print(status.message);
@@ -143,7 +143,6 @@ class SignInPage extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
                     _login(_authController);
-                    Get.offNamed(RouteHelper.getInitial());
                   },
                   child: Container(
                     width: screenWidth / 2,
