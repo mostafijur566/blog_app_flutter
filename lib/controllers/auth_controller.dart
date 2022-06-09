@@ -20,10 +20,12 @@ class AuthController extends GetxController implements GetxService{
     if(response.statusCode == 200){
       if(response.body["status"] == 400){
         responseModel = ResponseModel(false, response.body["message"]);
+        Get.snackbar('Error!', response.body["message"].toString());
       }
       else{
         authRepo.saveUserToken(response.body["token"]);
         responseModel = ResponseModel(true, response.body["message"]);
+        Get.snackbar('Success!', response.body["message"].toString());
         print(response.body["token"]);
       }
     }
@@ -47,6 +49,7 @@ class AuthController extends GetxController implements GetxService{
     }
     else{
       responseModel = ResponseModel(false, "Unable to log in with provided credentials.");
+      Get.snackbar('Error!', "Unable to log in with provided credentials.");
       print(response.statusCode);
     }
     _isLoading=false;
