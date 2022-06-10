@@ -15,6 +15,13 @@ class AuthController extends GetxController implements GetxService{
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  Future <void> loggedInUser() async{
+    String token;
+    token = await authRepo.getUserToken();
+    print(token);
+    authRepo.saveUserToken(token);
+  }
+
   Future<ResponseModel> registration(SignUpBody signUpBody) async{
     _isLoading = true;
     update();
@@ -50,7 +57,6 @@ class AuthController extends GetxController implements GetxService{
     if(response.statusCode == 200){
       authRepo.saveUserToken(response.body["token"]);
       responseModel = ResponseModel(true, "success");
-      print(response.body["token"]);
     }
     else{
       responseModel = ResponseModel(false, "Unable to log in with provided credentials.");

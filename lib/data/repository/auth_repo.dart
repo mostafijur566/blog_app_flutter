@@ -15,12 +15,15 @@ class AuthRepo{
     return await apiClient.post(AppConstants.REGISTER_ENDPOINT, signUpBody.toJson());
   }
 
-  bool userLoggedIn() {
-    return sharedPreferences.containsKey(AppConstants.TOKEN);
-  }
+
 
   Future<String> getUserToken() async{
     return await sharedPreferences.getString(AppConstants.TOKEN)??"None";
+  }
+
+  bool userLoggedIn() {
+    getUserToken();
+    return sharedPreferences.containsKey(AppConstants.TOKEN);
   }
 
   Future<Response> login(SignInBody signInBody) async{

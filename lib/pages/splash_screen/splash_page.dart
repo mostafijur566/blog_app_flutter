@@ -5,6 +5,8 @@ import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/auth_controller.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
@@ -26,7 +28,15 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin{
 
     Timer(
       const Duration(seconds: 3),
-        () => Get.offNamed(RouteHelper.getSignInPage())
+        () {
+          if(Get.find<AuthController>().userLoggedIn()){
+            Get.find<AuthController>().loggedInUser();
+            Get.toNamed(RouteHelper.getInitial());
+          }
+          else{
+            Get.offNamed(RouteHelper.getSignInPage());
+          }
+      }
     );
   }
 

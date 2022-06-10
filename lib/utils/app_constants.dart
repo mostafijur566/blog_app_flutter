@@ -7,6 +7,8 @@ class AppConstants{
 
   static const String LOGIN_ENDPOINT = 'login/';
 
+  static const String CATEGORY_ENDPOINT = 'get-categories/';
+
   static const String EMAIL = '';
 
   static const String PASSWORD = '';

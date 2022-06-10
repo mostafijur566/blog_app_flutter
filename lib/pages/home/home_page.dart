@@ -1,10 +1,14 @@
+import 'package:blog_app_flutter/controllers/category_controller.dart';
+import 'package:blog_app_flutter/models/category_model.dart';
 import 'package:blog_app_flutter/pages/comment/comment_page.dart';
 import 'package:blog_app_flutter/pages/post/post_page.dart';
 import 'package:blog_app_flutter/pages/post/user_post_page.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/app_text_field.dart';
+import 'package:blog_app_flutter/widgets/custom_loading.dart';
 import 'package:blog_app_flutter/widgets/expandable_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/comment_text_field.dart';
@@ -24,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
+    Get.find<CategoryController>().getCategoryList();
     List<String> categories = [
       "All",
       "Food",
@@ -91,47 +96,49 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Container(
-              height: screenHeight * 0.06,
-              margin: EdgeInsets.only(
-                  top: screenHeight * 0.001, bottom: screenHeight * 0.001),
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedItem = index;
-                          print(selectedItem);
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            left: screenWidth * 0.02,
-                            right: screenWidth * 0.02),
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Center(
-                          child: Text(
-                            categories[index],
-                            style: TextStyle(
-                                fontSize: selectedItem == index
-                                    ? screenHeight * 0.025
-                                    : screenHeight * 0.02,
-                                color: AppColors.userNameColor,
-                                fontWeight: selectedItem == index
-                                    ? FontWeight.bold
-                                    : FontWeight.normal),
+            GetBuilder<CategoryController>(builder: (categories){
+              return !categories.isLoading ? CustomLoading() : Container(
+                height: screenHeight * 0.06,
+                margin: EdgeInsets.only(
+                    top: screenHeight * 0.001, bottom: screenHeight * 0.001),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.categories.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedItem = index;
+                            print(selectedItem);
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                              left: screenWidth * 0.02,
+                              right: screenWidth * 0.02),
+                          decoration: BoxDecoration(color: Colors.white),
+                          child: Center(
+                            child: Text(
+                              categories.categories[index].name,
+                              style: TextStyle(
+                                  fontSize: selectedItem == index
+                                      ? screenHeight * 0.025
+                                      : screenHeight * 0.02,
+                                  color: AppColors.userNameColor,
+                                  fontWeight: selectedItem == index
+                                      ? FontWeight.bold
+                                      : FontWeight.normal),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
-            ),
+                      );
+                    }),
+              );
+            }),
             Expanded(
               child: ListView.builder(
                   physics: BouncingScrollPhysics(),

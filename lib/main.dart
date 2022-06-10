@@ -1,3 +1,5 @@
+import 'package:blog_app_flutter/controllers/auth_controller.dart';
+import 'package:blog_app_flutter/controllers/category_controller.dart';
 import 'package:blog_app_flutter/pages/account/account_page.dart';
 import 'package:blog_app_flutter/pages/account/user_profile_page.dart';
 import 'package:blog_app_flutter/pages/auth/sign_in_page.dart';
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.find<AuthController>().userLoggedIn();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Blogo',
