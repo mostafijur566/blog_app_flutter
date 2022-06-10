@@ -6,7 +6,7 @@ class CategoryRepo extends GetxService{
   final ApiClient apiClient;
   CategoryRepo({required this.apiClient});
   
-  Future<Response> getCategory() async{
-    return await apiClient.getCategory(AppConstants.CATEGORY_ENDPOINT);
+  Future<Response> getData() async{
+    return await apiClient.getData(AppConstants.CATEGORY_ENDPOINT);
   }
 }

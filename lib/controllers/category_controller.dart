@@ -14,11 +14,10 @@ class CategoryController extends GetxController{
   bool get isLoading => _isLoading;
 
   Future<void> getCategoryList() async{
-    Response response = await categoryRepo.getCategory();
+    Response response = await categoryRepo.getData();
     if(response.statusCode == 200){
       _categories = [];
       _categories.addAll(Category.fromJson(response.body).categories);
-      print(_categories[0].name);
       _isLoading = true;
       update();
     }

@@ -1,4 +1,5 @@
 import 'package:blog_app_flutter/controllers/category_controller.dart';
+import 'package:blog_app_flutter/controllers/post_controller.dart';
 import 'package:blog_app_flutter/models/category_model.dart';
 import 'package:blog_app_flutter/pages/comment/comment_page.dart';
 import 'package:blog_app_flutter/pages/post/post_page.dart';
@@ -25,18 +26,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedItem = 0;
 
+  int categoryId = 1;
+
+  loadPost(String id) async{
+    await Get.find<PostController>().getPostByCategory(id);
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    Get.find<CategoryController>().getCategoryList();
+    Get.find<PostController>().getPosts();
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    Get.find<CategoryController>().getCategoryList();
-    List<String> categories = [
-      "All",
-      "Food",
-      "Travel",
-      "Lifestyle",
-      "Science",
-      "Fashion"
-    ];
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -112,8 +116,13 @@ class _HomePageState extends State<HomePage> {
                       return GestureDetector(
                         onTap: () {
                           setState(() {
+                            if(categories.categories[index].name != "All") {
+                              loadPost(categories.categories[index].id.toString());
+                            } else{
+                              Get.find<PostController>().getPosts();
+                            }
                             selectedItem = index;
-                            print(selectedItem);
+                            //print(selectedItem);
                           });
                         },
                         child: Container(
@@ -139,100 +148,111 @@ class _HomePageState extends State<HomePage> {
                     }),
               );
             }),
-            Expanded(
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  //scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.only(top: screenHeight * 0.015),
-                      margin: EdgeInsets.only(top: screenHeight * 0.015),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius:
-                              BorderRadius.circular(screenHeight * 0.015)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: screenWidth * 0.02,
-                                right: screenWidth * 0.02),
-                            child: Text(
-                              'Late Night Ideas',
-                              style: TextStyle(
-                                  color: AppColors.txtHeadLineColor,
-                                  fontSize: screenHeight * 0.025,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: screenWidth * 0.02,
-                                    right: screenWidth * 0.02),
-                                child: Text(
-                                  'Author',
-                                  style: TextStyle(
-                                    color: AppColors.smallTxtColor,
-                                    fontSize: screenHeight * 0.02,
-                                  ),
-                                ),
+            GetBuilder<PostController>(builder: (post){
+              return Expanded(
+                child: post.allPostsList.isEmpty ? Container(
+                  margin: EdgeInsets.only(top: screenHeight * 0.01),
+                  child: Text('No posts available!',
+                    style: TextStyle(
+                      color: AppColors.smallTxtColor,
+                      fontSize: screenHeight * 0.02,
+                    ),
+                  ),
+                ) : ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    //scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: post.allPostsList.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.only(top: screenHeight * 0.015),
+                        margin: EdgeInsets.only(top: screenHeight * 0.015),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                            BorderRadius.circular(screenHeight * 0.015)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: screenWidth * 0.02,
+                                  right: screenWidth * 0.02),
+                              child: Text(
+                              post.allPostsList[index].title,
+                                style: TextStyle(
+                                    color: AppColors.txtHeadLineColor,
+                                    fontSize: screenHeight * 0.025,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.only(right: screenWidth * 0.02),
-                                child: GestureDetector(
-                                  onTap: (){
-                                    Get.to(UserProfilePage());
-                                  },
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: screenWidth * 0.02,
+                                      right: screenWidth * 0.02),
                                   child: Text(
-                                    '@mosta',
+                                    'Author',
                                     style: TextStyle(
-                                        color: AppColors.userNameColor,
-                                        fontSize: screenHeight * 0.02,
-                                        fontWeight: FontWeight.bold),
+                                      color: AppColors.smallTxtColor,
+                                      fontSize: screenHeight * 0.02,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: screenWidth * 0.02,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: screenWidth * 0.02,
-                                right: screenWidth * 0.02),
-                            child: ExpandableTextWidget(
-                                text:
-                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
-                          ),
-                          SizedBox(
-                            height: screenWidth * 0.02,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: screenWidth * 0.02,
-                                right: screenWidth * 0.02),
-                            child: GestureDetector(
-                              onTap: () {
-                                Get.to(CommentPage());
-                              },
-                              child: CommentWidget()
+                                Padding(
+                                  padding:
+                                  EdgeInsets.only(right: screenWidth * 0.02),
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      Get.to(UserProfilePage());
+                                    },
+                                    child: Text(
+                                      '@${post.allPostsList[index].user}',
+                                      style: TextStyle(
+                                          color: AppColors.userNameColor,
+                                          fontSize: screenHeight * 0.02,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          SizedBox(
-                            height: screenWidth * 0.03,
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
-            ),
+                            SizedBox(
+                              height: screenWidth * 0.02,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: screenWidth * 0.02,
+                                  right: screenWidth * 0.02),
+                              child: ExpandableTextWidget(
+                                  text:
+                                  post.allPostsList[index].body
+                                  ),
+                            ),
+                            SizedBox(
+                              height: screenWidth * 0.02,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: screenWidth * 0.02,
+                                  right: screenWidth * 0.02),
+                              child: GestureDetector(
+                                  onTap: () {
+                                    Get.to(CommentPage());
+                                  },
+                                  child: CommentWidget()
+                              ),
+                            ),
+                            SizedBox(
+                              height: screenWidth * 0.03,
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+              );
+            })
           ],
         ),
       ),

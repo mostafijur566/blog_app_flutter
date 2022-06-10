@@ -18,6 +18,7 @@ dependencies:
   get: ^4.6.5
   shared_preferences: ^2.0.15
   flutter_spinkit: ^5.1.0
+  snippet_coder_utils: ^1.0.12
 
 dev_dependencies:
   flutter_test:

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      // home: SignInPage(),
+      // home: PostPage(),
 
       initialRoute: RouteHelper.getSplashPage(),
       getPages: RouteHelper.routes,
