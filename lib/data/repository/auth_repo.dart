@@ -15,8 +15,6 @@ class AuthRepo{
     return await apiClient.post(AppConstants.REGISTER_ENDPOINT, signUpBody.toJson());
   }
 
-
-
   Future<String> getUserToken() async{
     return await sharedPreferences.getString(AppConstants.TOKEN)??"None";
   }

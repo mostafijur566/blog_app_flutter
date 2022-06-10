@@ -9,7 +9,7 @@ import '../../controllers/auth_controller.dart';
 import 'package:get/get.dart';
 
 class SignInPage extends StatefulWidget {
-  SignInPage({Key? key}) : super(key: key);
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -76,7 +76,7 @@ class _SignInPageState extends State<SignInPage> {
       body: SafeArea(
         child:  GetBuilder<AuthController>(builder: (_authController){
           return !_authController.isLoading ? SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
 
@@ -193,7 +193,7 @@ class _SignInPageState extends State<SignInPage> {
               ],
             ),
           ) :
-          Center(child: CircularProgressIndicator(color: Colors.white,));
+          const Center(child: CircularProgressIndicator(color: Colors.white,));
         })
       ),
     );
