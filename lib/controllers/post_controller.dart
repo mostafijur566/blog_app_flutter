@@ -2,6 +2,7 @@ import 'package:blog_app_flutter/data/repository/post_repo.dart';
 import 'package:get/get.dart';
 
 import '../models/post_model.dart';
+import '../models/post_model_category.dart';
 
 class PostController extends GetxController{
   final PostRepo postRepo;
@@ -30,7 +31,7 @@ class PostController extends GetxController{
     Response response = await postRepo.getPostByCategory(id);
     if(response.statusCode == 200){
       _allPostsList = [];
-      _allPostsList.addAll(Post.fromJson(response.body).allPosts);
+      _allPostsList.addAll(PostCategory.fromJson(response.body).allPosts);
       _isLoading = true;
       update();
     }

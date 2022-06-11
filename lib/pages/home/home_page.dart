@@ -1,18 +1,13 @@
 import 'package:blog_app_flutter/controllers/category_controller.dart';
 import 'package:blog_app_flutter/controllers/post_controller.dart';
-import 'package:blog_app_flutter/models/category_model.dart';
 import 'package:blog_app_flutter/pages/comment/comment_page.dart';
 import 'package:blog_app_flutter/pages/post/post_page.dart';
-import 'package:blog_app_flutter/pages/post/user_post_page.dart';
+import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
-import 'package:blog_app_flutter/widgets/app_text_field.dart';
 import 'package:blog_app_flutter/widgets/custom_loading.dart';
 import 'package:blog_app_flutter/widgets/expandable_text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../widgets/comment_text_field.dart';
 import '../../widgets/comment_widget.dart';
 import '../account/user_profile_page.dart';
 
@@ -24,8 +19,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectedItem = 0;
 
+  late String firstHalf;
+  late String secondHalf;
+
+  List<bool> hiddenText = [];
+
+  double textHeight = 150;
+
+  int selectedItem = 0;
   int categoryId = 1;
 
   loadPost(String id) async{
@@ -35,8 +37,93 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     super.initState();
-    Get.find<CategoryController>().getCategoryList();
-    Get.find<PostController>().getPosts();
+    loadResource();
+
+  }
+
+  loadResource() async{
+    await Get.find<CategoryController>().getCategoryList();
+    await Get.find<PostController>().getPosts();
+
+    hiddenText = [];
+    print(Get.find<PostController>().allPostsList.length);
+    for(int i = 0; i < Get.find<PostController>().allPostsList.length; i++){
+      hiddenText.add(true);
+    }
+  }
+
+  expandableTextWidget(String text, int index){
+
+
+    if(text.length > textHeight){
+      firstHalf = text.substring(0, textHeight.toInt());
+
+      secondHalf = text.substring(textHeight.toInt(), text.length);
+    }
+
+    else{
+      firstHalf = text;
+      secondHalf = '';
+    }
+
+    if(secondHalf.isEmpty) {
+     return Text(
+      firstHalf,
+      style: TextStyle(
+        color: AppColors.smallTxtColor,
+        fontSize: 16,
+      ),
+      textAlign: TextAlign.justify,
+    );
+
+    } else {
+      return Column(
+        children: [
+          Text(
+            hiddenText[index] ? (firstHalf + '...') :
+            (firstHalf + secondHalf),
+            style: TextStyle(
+              color: AppColors.smallTxtColor,
+              fontSize: 16,
+            ),
+            textAlign: TextAlign.justify,
+          ),
+          InkWell(
+            onTap: () {
+              setState(() {
+                hiddenText[index] = !hiddenText[index];
+              });
+            },
+            child: Row(
+              children: [
+                Text(
+                  hiddenText[index] ? 'Show more' : 'Show less',
+                  style: TextStyle(
+                      color: AppColors.userNameColor,
+                      fontSize: 16
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+                Icon(
+                  hiddenText[index] ? Icons.arrow_drop_down :
+                  Icons.arrow_drop_up,
+                  color: AppColors.userNameColor,
+                )
+              ],
+            ),
+          )
+        ],
+      );
+    }
+  }
+
+  loadText(String text){
+    // var body;
+    // setState(() {
+    //   body = text;
+    // });
+    print(text);
+    return ExpandableTextWidget(text: text);
   }
 
   @override
@@ -74,7 +161,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             GestureDetector(
               onTap: (){
-                Get.to(PostPage());
+                Get.toNamed(RouteHelper.getPostPage());
               },
               child: Container(
                 color: Colors.white,
@@ -105,11 +192,11 @@ class _HomePageState extends State<HomePage> {
                 height: screenHeight * 0.06,
                 margin: EdgeInsets.only(
                     top: screenHeight * 0.001, bottom: screenHeight * 0.001),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
                 child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: categories.categories.length,
                     itemBuilder: (context, index) {
@@ -159,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ) : ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     //scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: post.allPostsList.length,
@@ -225,10 +312,10 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.only(
                                   left: screenWidth * 0.02,
                                   right: screenWidth * 0.02),
-                              child: ExpandableTextWidget(
-                                  text:
-                                  post.allPostsList[index].body
-                                  ),
+                              // child: ExpandableTextWidget(text: post.allPostsList[index].body,)
+                              child: Container(
+                                child: expandableTextWidget(post.allPostsList[index].body, index),
+                              ),
                             ),
                             SizedBox(
                               height: screenWidth * 0.02,
@@ -239,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                                   right: screenWidth * 0.02),
                               child: GestureDetector(
                                   onTap: () {
-                                    Get.to(CommentPage());
+                                    Get.toNamed(RouteHelper.getCommentPage());
                                   },
                                   child: CommentWidget()
                               ),

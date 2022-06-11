@@ -2,7 +2,7 @@ import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableTextWidget extends StatefulWidget {
-  const ExpandableTextWidget({Key? key,
+  ExpandableTextWidget({Key? key,
     required this.text
   }) : super(key: key);
 
@@ -14,10 +14,12 @@ class ExpandableTextWidget extends StatefulWidget {
 
 class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
 
+  late String text;
   late String firstHalf;
   late String secondHalf;
 
   bool hiddenText = true;
+
 
   double textHeight = 150;
 
@@ -25,14 +27,18 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   void initState() {
     super.initState();
 
-    if(widget.text.length > textHeight){
-      firstHalf = widget.text.substring(0, textHeight.toInt());
+    setState(() {
+       text = widget.text;
+     });
 
-      secondHalf = widget.text.substring(textHeight.toInt(), widget.text.length);
+    if(text.length > textHeight){
+      firstHalf = text.substring(0, textHeight.toInt());
+
+      secondHalf = text.substring(textHeight.toInt(), text.length);
     }
 
     else{
-      firstHalf = widget.text;
+      firstHalf = text;
       secondHalf = '';
     }
   }
