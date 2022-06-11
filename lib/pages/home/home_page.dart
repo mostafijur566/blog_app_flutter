@@ -1,7 +1,5 @@
 import 'package:blog_app_flutter/controllers/category_controller.dart';
 import 'package:blog_app_flutter/controllers/post_controller.dart';
-import 'package:blog_app_flutter/pages/comment/comment_page.dart';
-import 'package:blog_app_flutter/pages/post/post_page.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/custom_loading.dart';
@@ -38,7 +36,6 @@ class _HomePageState extends State<HomePage> {
   void initState(){
     super.initState();
     loadResource();
-
   }
 
   loadResource() async{
@@ -53,8 +50,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   expandableTextWidget(String text, int index){
-
-
     if(text.length > textHeight){
       firstHalf = text.substring(0, textHeight.toInt());
 
@@ -116,15 +111,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
   }
-
-  loadText(String text){
-    // var body;
-    // setState(() {
-    //   body = text;
-    // });
-    print(text);
-    return ExpandableTextWidget(text: text);
-  }
+  
 
   @override
   Widget build(BuildContext context) {
