@@ -28,9 +28,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin{
 
     Timer(
       const Duration(seconds: 3),
-        () {
+        () async{
           if(Get.find<AuthController>().userLoggedIn()){
-            Get.find<AuthController>().loggedInUser();
+            await Get.find<AuthController>().loggedInUser();
             Get.toNamed(RouteHelper.getInitial());
           }
           else{

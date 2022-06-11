@@ -1,5 +1,6 @@
 import 'package:blog_app_flutter/controllers/auth_controller.dart';
 import 'package:blog_app_flutter/controllers/category_controller.dart';
+import 'package:blog_app_flutter/controllers/post_controller.dart';
 import 'package:blog_app_flutter/pages/account/account_page.dart';
 import 'package:blog_app_flutter/pages/account/user_profile_page.dart';
 import 'package:blog_app_flutter/pages/auth/sign_in_page.dart';
@@ -11,6 +12,7 @@ import 'package:blog_app_flutter/pages/post/post_page.dart';
 import 'package:blog_app_flutter/pages/post/user_post_page.dart';
 import 'package:blog_app_flutter/pages/splash_screen/splash_page.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
+import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;

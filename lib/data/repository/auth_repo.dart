@@ -43,4 +43,8 @@ class AuthRepo{
       throw e;
     }
   }
+
+  Future<void> clearToken() async{
+    await sharedPreferences.clear();
+  }
 }

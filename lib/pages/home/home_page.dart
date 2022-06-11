@@ -4,6 +4,7 @@ import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/custom_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../widgets/comment_widget.dart';
 import '../account/user_profile_page.dart';
@@ -121,6 +122,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppColors.dividerColor,
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          systemNavigationBarColor: AppColors.mainColor, // Navigation bar
+          statusBarColor: Colors.grey[300], // Status bar
+        ),
         backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -174,12 +179,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             GetBuilder<CategoryController>(builder: (categories){
-              return !categories.isLoading ? CustomLoading() : Container(
+              return !categories.isLoading ? Container() : Container(
                 height: screenHeight * 0.06,
                 margin: EdgeInsets.only(
                     top: screenHeight * 0.001, bottom: screenHeight * 0.001),
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xFFFDFDFD),
                 ),
                 child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
@@ -225,7 +230,7 @@ class _HomePageState extends State<HomePage> {
               return Expanded(
                 child: post.allPostsList.isEmpty ? Container(
                   margin: EdgeInsets.only(top: screenHeight * 0.01),
-                  child: Text('No posts available!',
+                  child: !post.isLoading ? CustomLoading() : Text('No posts available!',
                     style: TextStyle(
                       color: AppColors.smallTxtColor,
                       fontSize: screenHeight * 0.02,

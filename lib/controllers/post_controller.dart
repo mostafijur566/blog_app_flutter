@@ -1,4 +1,5 @@
 import 'package:blog_app_flutter/data/repository/post_repo.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/post_model.dart';
@@ -36,7 +37,10 @@ class PostController extends GetxController{
       update();
     }
     else{
-      print(response.statusCode);
+      Get.snackbar('Error!', 'Please check your internet connection!',
+          colorText: Colors.white,
+          backgroundColor: Colors.redAccent
+      );
     }
   }
 }

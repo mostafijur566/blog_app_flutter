@@ -30,7 +30,10 @@ class AuthController extends GetxController implements GetxService{
       else{
         authRepo.saveUserToken(response.body["token"]);
         responseModel = ResponseModel(true, response.body["message"]);
-        Get.snackbar('Success!', response.body["message"].toString());
+        Get.snackbar('Success!', response.body["message"].toString(),
+          colorText: Colors.white,
+          backgroundColor: Colors.green
+        );
         print(response.body["token"]);
       }
     }
@@ -75,5 +78,9 @@ class AuthController extends GetxController implements GetxService{
 
   bool userLoggedIn(){
     return authRepo.userLoggedIn();
+  }
+
+  Future<void> clearToken() async{
+    await authRepo.clearToken();
   }
 }

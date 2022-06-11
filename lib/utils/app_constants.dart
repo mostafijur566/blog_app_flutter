@@ -13,6 +13,8 @@ class AppConstants{
 
   static const String POSTBYCATEGORY = 'get-post-by-category/<str:pk>/';
 
+  static const String GET_USER_INFO = 'get-user/';
+
   static const String EMAIL = '';
 
   static const String PASSWORD = '';

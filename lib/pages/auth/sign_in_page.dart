@@ -1,3 +1,4 @@
+import 'package:blog_app_flutter/controllers/category_controller.dart';
 import 'package:blog_app_flutter/models/signin_body.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 
 import '../../controllers/auth_controller.dart';
 import 'package:get/get.dart';
+
+import '../../helper/dependencies.dart' as dep;
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -20,7 +23,7 @@ class _SignInPageState extends State<SignInPage> {
 
   TextEditingController passwordController = TextEditingController();
 
-  void _login(AuthController authController) {
+   void _login(AuthController authController) async{
 
     String email = emailController.text.toLowerCase().trim();
     String password = passwordController.text;
@@ -54,8 +57,9 @@ class _SignInPageState extends State<SignInPage> {
 
     else{
       SignInBody signInBody = SignInBody(username: email, password: password);
-      authController.login(signInBody).then((status){
+      authController.login(signInBody).then((status)  async{
         if(status.isSuccess){
+          await dep.init();
           Get.offNamed(RouteHelper.getInitial());
         }
         else{

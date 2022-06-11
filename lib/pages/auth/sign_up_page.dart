@@ -146,6 +146,7 @@ class SignUpPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     _registration(_authController);
+                    Get.toNamed(RouteHelper.getSignInPage());
                   },
                   child: Container(
                     width: screenWidth / 2,
