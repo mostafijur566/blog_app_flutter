@@ -3,7 +3,6 @@ import 'package:blog_app_flutter/controllers/post_controller.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/custom_loading.dart';
-import 'package:blog_app_flutter/widgets/expandable_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../widgets/comment_widget.dart';
@@ -111,7 +110,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
   }
-  
+
 
   @override
   Widget build(BuildContext context) {
@@ -299,7 +298,6 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.only(
                                   left: screenWidth * 0.02,
                                   right: screenWidth * 0.02),
-                              // child: ExpandableTextWidget(text: post.allPostsList[index].body,)
                               child: Container(
                                 child: expandableTextWidget(post.allPostsList[index].body, index),
                               ),
