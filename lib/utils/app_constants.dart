@@ -11,9 +11,9 @@ class AppConstants{
 
   static const String POST_ENDPOINT = 'get-blog/';
 
-  static const String POSTBYCATEGORY = 'get-post-by-category/<str:pk>/';
-
   static const String GET_USER_INFO = 'get-user/';
+
+  static const String POST_BLOG_ENDPOINT = 'post-blog/';
 
   static const String EMAIL = '';
 

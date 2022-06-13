@@ -52,80 +52,79 @@ class _AccountPageState extends State<AccountPage> {
       body: Container(
         width: double.maxFinite,
         margin: EdgeInsets.only(top: screenHeight * 0.02),
-        child: Column(
-          children: [
-            AppIcon(icon: Icons.person,
-              backgroundColor: AppColors.mainColor,
-              iconColor: Colors.white,
-              iconSize: screenWidth / 4,
-              size: screenWidth / 2.5,
-            ),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            GetBuilder<UserController>(builder: (userInfo){
-              return !userInfo.isLoading ? TextFieldLoading() : Expanded(
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      AccountWidget(appIcon: AppIcon(
-                        icon: Icons.person,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              AppIcon(icon: Icons.person,
+                backgroundColor: AppColors.mainColor,
+                iconColor: Colors.white,
+                iconSize: screenWidth / 4.5,
+                size: screenWidth / 3,
+              ),
+              SizedBox(
+                height: screenHeight * 0.02,
+              ),
+              GetBuilder<UserController>(builder: (userInfo){
+                return !userInfo.isLoading ? TextFieldLoading() :
+                Column(
+                  children: [
+                    AccountWidget(appIcon: AppIcon(
+                      icon: Icons.person,
+                      backgroundColor: AppColors.mainColor,
+                      iconColor: Colors.white,
+                      iconSize: screenHeight * 0.015 * 5 / 2,
+                      size: screenHeight * 0.01 * 5,
+                    ), text: userInfo.name.toString()),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    AccountWidget(appIcon: AppIcon(
+                      icon: Icons.verified_user,
+                      backgroundColor: AppColors.iconColor,
+                      iconColor: Colors.white,
+                      iconSize: screenHeight * 0.015 * 5 / 2,
+                      size: screenHeight * 0.01 * 5,
+                    ),
+                        text: userInfo.username.toString()),
+
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+
+                    AccountWidget(appIcon: AppIcon(
+                      icon: Icons.email,
+                      backgroundColor: AppColors.iconColor,
+                      iconColor: Colors.white,
+                      iconSize: screenHeight * 0.015 * 5 / 2,
+                      size: screenHeight * 0.01 * 5,
+                    ),
+                        text: userInfo.email.toString()),
+
+
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+
+                    GestureDetector(
+                      onTap: () async{
+                        await Get.find<AuthController>().clearToken();
+                        Get.deleteAll();
+                        Get.toNamed(RouteHelper.getSignInPage());
+                      },
+                      child: AccountWidget(appIcon: AppIcon(
+                        icon: Icons.logout,
                         backgroundColor: AppColors.mainColor,
                         iconColor: Colors.white,
                         iconSize: screenHeight * 0.015 * 5 / 2,
                         size: screenHeight * 0.01 * 5,
-                      ), text: userInfo.name.toString()),
-                      SizedBox(
-                        height: screenHeight * 0.02,
                       ),
-                      AccountWidget(appIcon: AppIcon(
-                        icon: Icons.verified_user,
-                        backgroundColor: AppColors.iconColor,
-                        iconColor: Colors.white,
-                        iconSize: screenHeight * 0.015 * 5 / 2,
-                        size: screenHeight * 0.01 * 5,
-                      ),
-                          text: userInfo.username.toString()),
-
-                      SizedBox(
-                        height: screenHeight * 0.02,
-                      ),
-
-                      AccountWidget(appIcon: AppIcon(
-                        icon: Icons.email,
-                        backgroundColor: AppColors.iconColor,
-                        iconColor: Colors.white,
-                        iconSize: screenHeight * 0.015 * 5 / 2,
-                        size: screenHeight * 0.01 * 5,
-                      ),
-                          text: userInfo.email.toString()),
-
-                      SizedBox(
-                        height: screenHeight * 0.02,
-                      ),
-
-                      GestureDetector(
-                        onTap: () async{
-                          await Get.find<AuthController>().clearToken();
-                          Get.deleteAll();
-                          Get.toNamed(RouteHelper.getSignInPage());
-                        },
-                        child: AccountWidget(appIcon: AppIcon(
-                          icon: Icons.logout,
-                          backgroundColor: AppColors.mainColor,
-                          iconColor: Colors.white,
-                          iconSize: screenHeight * 0.015 * 5 / 2,
-                          size: screenHeight * 0.01 * 5,
-                        ),
-                            text: 'Sign Out'),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            })
-          ],
+                          text: 'Sign Out'),
+                    ),
+                  ],
+                );
+              })
+            ],
+          ),
         ),
       ),
     );

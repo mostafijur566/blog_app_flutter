@@ -15,6 +15,9 @@ class PostController extends GetxController{
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  bool _logout = false;
+  bool get logout => _logout;
+
   Future<void> getPosts() async{
     Response response = await postRepo.getPost();
     if(response.statusCode == 200){
@@ -24,6 +27,10 @@ class PostController extends GetxController{
       update();
     }
     else{
+      if(response.statusCode == 401){
+        _logout = true;
+        update();
+      }
       print(response.statusCode);
     }
   }
@@ -36,11 +43,13 @@ class PostController extends GetxController{
       _isLoading = true;
       update();
     }
-    else{
-      Get.snackbar('Error!', 'Please check your internet connection!',
-          colorText: Colors.white,
-          backgroundColor: Colors.redAccent
-      );
-    }
+
+
+      else{
+        Get.snackbar('Error!', 'Please check your internet connection!',
+            colorText: Colors.white,
+            backgroundColor: Colors.redAccent
+        );
+      }
   }
 }

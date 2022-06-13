@@ -1,8 +1,15 @@
 import 'package:blog_app_flutter/controllers/category_controller.dart';
+import 'package:blog_app_flutter/controllers/post_a_blog_controller.dart';
+import 'package:blog_app_flutter/controllers/user_controller.dart';
+import 'package:blog_app_flutter/models/post_a_blog_model.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
+import 'package:blog_app_flutter/helper/dependencies.dart' as dep;
+
+import '../../routes/route_helper.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({Key? key}) : super(key: key);
@@ -14,23 +21,77 @@ class PostPage extends StatefulWidget {
 class _PostPageState extends State<PostPage> {
   List<dynamic> category = [];
 
+  TextEditingController headlineController = TextEditingController();
+  TextEditingController bodyController = TextEditingController();
+
   String? categoryId;
+  late String user;
 
   var categories = Get.find<CategoryController>().categories;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     category = [];
-    for(int i=0; i<categories.length; i++){
+    for (int i = 0; i < categories.length; i++) {
       category.add({"id": categories[i].id, "name": categories[i].name});
     }
     category.removeAt(0);
+    loadResource();
   }
+
+  Future<void>loadResource() async{
+    await Get.find<UserController>().getUserInfo();
+    user = await Get.find<UserController>().username.toString();
+    await dep.init();
+  }
+
+  Future<void> postBlog() async{
+    String headLine;
+    String body;
+
+    var postBlog = Get.find<PostABlogController>();
+
+    headLine = headlineController.text;
+    body = bodyController.text;
+
+    if(categoryId == null){
+      Get.snackbar('Oops!', 'Please select a category!',
+        colorText: Colors.white,
+        backgroundColor: Colors.redAccent
+      );
+    }
+
+    else if(headLine.isEmpty){
+      Get.snackbar('Oops!', 'Head line field cannot be empty',
+          colorText: Colors.white,
+          backgroundColor: Colors.redAccent
+      );
+    }
+    else if (body.isEmpty){
+      Get.snackbar('Oops!', 'Body field cannot be empty',
+          colorText: Colors.white,
+          backgroundColor: Colors.redAccent
+      );
+    }
+    else{
+      PostABlogModel postABlogModel = PostABlogModel(user: user, categoryId: int.parse(categoryId!), title: headLine, body: body);
+      postBlog.postBlog(postABlogModel).then((status) async{
+        if(status.isSuccess){
+          await dep.init();
+          Get.offNamed(RouteHelper.getInitial());
+        }
+        else{
+          print(status.message);
+        }
+      });
+      print(user);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
-
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -44,23 +105,36 @@ class _PostPageState extends State<PostPage> {
             'Create post',
             style: TextStyle(color: AppColors.userNameColor),
           ),
+          leading: new IconButton(
+              onPressed: () async{
+                await dep.init();
+                Get.offNamed(RouteHelper.getInitial());
+              },
+              icon: Icon(CupertinoIcons.back),
+          ),
+          automaticallyImplyLeading: false,
           actions: [
-            Row(
-              children: [
-                Text(
-                  'POST',
-                  style: TextStyle(
-                      color: AppColors.userNameColor,
-                      fontWeight: FontWeight.bold),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.post_add,
-                    color: AppColors.userNameColor,
+            GestureDetector(
+              onTap: () {
+                postBlog();
+              },
+              child: Row(
+                children: [
+                  Text(
+                    'POST',
+                    style: TextStyle(
+                        color: AppColors.userNameColor,
+                        fontWeight: FontWeight.bold),
                   ),
-                ),
-              ],
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.post_add,
+                      color: AppColors.userNameColor,
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),
@@ -87,8 +161,8 @@ class _PostPageState extends State<PostPage> {
               this.categoryId,
               this.category,
               (onChangedVal) {
-                this.categoryId = onChangedVal;
-                print(onChangedVal);
+                categoryId = onChangedVal;
+                print(categoryId);
               },
               (onValidate) {
                 if (onValidate == null) {
@@ -108,6 +182,7 @@ class _PostPageState extends State<PostPage> {
             TextField(
               minLines: 1,
               maxLines: 3,
+              controller: headlineController,
               decoration: InputDecoration(
                 hintText: "Head line",
                 focusedBorder: OutlineInputBorder(
@@ -127,12 +202,14 @@ class _PostPageState extends State<PostPage> {
               child: TextField(
                 expands: true,
                 maxLines: null,
+                controller: bodyController,
                 textAlign: TextAlign.justify,
                 decoration: InputDecoration(
                     hintText: "What's on you mind?", border: InputBorder.none),
               ),
             ))
           ],
-        ));
+        ),
+    );
   }
 }
