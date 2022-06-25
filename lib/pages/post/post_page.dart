@@ -3,8 +3,10 @@ import 'package:blog_app_flutter/controllers/post_a_blog_controller.dart';
 import 'package:blog_app_flutter/controllers/user_controller.dart';
 import 'package:blog_app_flutter/models/post_a_blog_model.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
+import 'package:blog_app_flutter/widgets/custom_loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:blog_app_flutter/helper/dependencies.dart' as dep;
@@ -46,7 +48,7 @@ class _PostPageState extends State<PostPage> {
     await dep.init();
   }
 
-  Future<void> postBlog() async{
+  Future<void> postBlog(PostABlogController postABlogController) async{
     String headLine;
     String body;
 
@@ -76,7 +78,7 @@ class _PostPageState extends State<PostPage> {
     }
     else{
       PostABlogModel postABlogModel = PostABlogModel(user: user, categoryId: int.parse(categoryId!), title: headLine, body: body);
-      postBlog.postBlog(postABlogModel).then((status) async{
+      postABlogController.postBlog(postABlogModel).then((status) async{
         if(status.isSuccess){
           await dep.init();
           Get.offNamed(RouteHelper.getInitial());
@@ -95,7 +97,8 @@ class _PostPageState extends State<PostPage> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
+    return GetBuilder<PostABlogController>(builder: (postBlogController){
+      return !postBlogController.isLoading ? Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(
             color: AppColors.mainColor, //change your color here
@@ -105,18 +108,18 @@ class _PostPageState extends State<PostPage> {
             'Create post',
             style: TextStyle(color: AppColors.userNameColor),
           ),
-          leading: new IconButton(
-              onPressed: () async{
-                await dep.init();
-                Get.offNamed(RouteHelper.getInitial());
-              },
-              icon: Icon(CupertinoIcons.back),
+          leading:  IconButton(
+            onPressed: () async{
+              await dep.init();
+              Get.offNamed(RouteHelper.getInitial());
+            },
+            icon: const Icon(CupertinoIcons.back),
           ),
           automaticallyImplyLeading: false,
           actions: [
             GestureDetector(
               onTap: () {
-                postBlog();
+                postBlog(postBlogController);
               },
               child: Row(
                 children: [
@@ -126,13 +129,12 @@ class _PostPageState extends State<PostPage> {
                         color: AppColors.userNameColor,
                         fontWeight: FontWeight.bold),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.post_add,
-                      color: AppColors.userNameColor,
-                    ),
+                  SizedBox(width: screenWidth * 0.015,),
+                  Icon(
+                    Icons.post_add,
+                    color: AppColors.userNameColor,
                   ),
+                  SizedBox(width: screenWidth * 0.015,),
                 ],
               ),
             )
@@ -160,11 +162,11 @@ class _PostPageState extends State<PostPage> {
               "Select category",
               this.categoryId,
               this.category,
-              (onChangedVal) {
+                  (onChangedVal) {
                 categoryId = onChangedVal;
                 print(categoryId);
               },
-              (onValidate) {
+                  (onValidate) {
                 if (onValidate == null) {
                   return 'Please select category';
                 }
@@ -187,29 +189,40 @@ class _PostPageState extends State<PostPage> {
                 hintText: "Head line",
                 focusedBorder: OutlineInputBorder(
                   borderSide:
-                      BorderSide(width: 1.0, color: AppColors.userNameColor),
+                  BorderSide(width: 1.0, color: AppColors.userNameColor),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide:
-                      BorderSide(width: 1.0, color: AppColors.userNameColor),
+                  BorderSide(width: 1.0, color: AppColors.userNameColor),
                 ),
               ),
             ),
             Expanded(
                 child: Padding(
-              padding: EdgeInsets.only(
-                  left: screenWidth * 0.02, right: screenWidth * 0.02),
-              child: TextField(
-                expands: true,
-                maxLines: null,
-                controller: bodyController,
-                textAlign: TextAlign.justify,
-                decoration: InputDecoration(
-                    hintText: "What's on you mind?", border: InputBorder.none),
-              ),
-            ))
+                  padding: EdgeInsets.only(
+                      left: screenWidth * 0.02, right: screenWidth * 0.02),
+                  child: TextField(
+                    expands: true,
+                    maxLines: null,
+                    controller: bodyController,
+                    textAlign: TextAlign.justify,
+                    decoration: InputDecoration(
+                        hintText: "What's on you mind?", border: InputBorder.none),
+                  ),
+                ))
           ],
         ),
-    );
+      ) : Scaffold(
+        body: Center(
+          child: Container(
+          color: Colors.white,
+          width: double.maxFinite,
+          child: SpinKitSpinningLines(
+            color: AppColors.mainColor,
+          ),
+        ),
+        ),
+      );
+    });
   }
 }
