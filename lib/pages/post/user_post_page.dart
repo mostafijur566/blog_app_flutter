@@ -37,7 +37,7 @@ class UserPostPage extends StatelessWidget {
           physics: BouncingScrollPhysics(),
         //scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: 5,
+        itemCount: 2,
         itemBuilder: (context, index) {
           return Container(
             padding: EdgeInsets.only(top: screenHeight * 0.015),

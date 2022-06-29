@@ -35,7 +35,12 @@ class RouteHelper{
     GetPage(name: splashPage, page: () => SplashPage()),
     GetPage(name: initial, page: () => NavBar()),
     GetPage(name: accountPage, page: () => AccountPage()),
-    GetPage(name: userProfilePage, page: () => UserProfilePage()),
+
+    GetPage(name: userProfilePage, page: () {
+      var userID = Get.parameters['userID'];
+      return UserProfilePage(userID: userID!);
+    }),
+
     GetPage(name: signInPage, page: () => SignInPage()),
     GetPage(name: signUpPage, page: () => SignUpPage()),
     GetPage(name: commentPage, page: () => CommentPage()),

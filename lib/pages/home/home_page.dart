@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                                     EdgeInsets.only(right: screenWidth * 0.02),
                                     child: GestureDetector(
                                       onTap: (){
-                                        Get.to(UserProfilePage());
+                                        Get.to(UserProfilePage(userID: post.allPostsList[index].user,));
                                       },
                                       child: Text(
                                         '@${post.allPostsList[index].user}',

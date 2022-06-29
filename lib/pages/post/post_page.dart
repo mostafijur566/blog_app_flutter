@@ -27,7 +27,7 @@ class _PostPageState extends State<PostPage> {
   TextEditingController bodyController = TextEditingController();
 
   String? categoryId;
-  late String user;
+  var user = '';
 
   var categories = Get.find<CategoryController>().categories;
 
@@ -44,7 +44,10 @@ class _PostPageState extends State<PostPage> {
 
   Future<void>loadResource() async{
     await Get.find<UserController>().getUserInfo();
-    user = await Get.find<UserController>().username.toString();
+    setState(() {
+      user = Get.find<UserController>().username!;
+    });
+    print(user);
     await dep.init();
   }
 
@@ -52,7 +55,6 @@ class _PostPageState extends State<PostPage> {
     String headLine;
     String body;
 
-    var postBlog = Get.find<PostABlogController>();
 
     headLine = headlineController.text;
     body = bodyController.text;
@@ -87,7 +89,6 @@ class _PostPageState extends State<PostPage> {
           print(status.message);
         }
       });
-      print(user);
     }
   }
 
@@ -149,7 +150,7 @@ class _PostPageState extends State<PostPage> {
                   left: screenHeight * 0.01,
                   bottom: screenHeight * 0.02),
               child: Text(
-                '@Mosta',
+                user.isEmpty ? '' :'@$user',
                 style: TextStyle(
                     color: AppColors.userNameColor,
                     fontSize: screenWidth * 0.04,

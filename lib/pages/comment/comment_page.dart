@@ -78,7 +78,8 @@ class _CommentPageState extends State<CommentPage> {
                             ),
                             GestureDetector(
                               onTap: (){
-                                Get.to(UserProfilePage());
+                                //TODO: need to pass parameters
+                                //Get.to(UserProfilePage());
                               },
                               child: Text('@mosta',
                                 style: TextStyle(
