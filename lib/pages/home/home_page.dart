@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/user_controller.dart';
 import '../../widgets/comment_widget.dart';
 import '../account/user_profile_page.dart';
 import 'package:blog_app_flutter/helper/dependencies.dart' as dep;

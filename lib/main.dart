@@ -1,6 +1,9 @@
 import 'package:blog_app_flutter/controllers/auth_controller.dart';
 import 'package:blog_app_flutter/controllers/category_controller.dart';
+import 'package:blog_app_flutter/controllers/post_a_blog_controller.dart';
 import 'package:blog_app_flutter/controllers/post_controller.dart';
+import 'package:blog_app_flutter/controllers/user_controller.dart';
+import 'package:blog_app_flutter/controllers/user_info_controller.dart';
 import 'package:blog_app_flutter/pages/account/account_page.dart';
 import 'package:blog_app_flutter/pages/account/user_profile_page.dart';
 import 'package:blog_app_flutter/pages/auth/sign_in_page.dart';

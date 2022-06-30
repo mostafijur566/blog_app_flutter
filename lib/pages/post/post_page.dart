@@ -98,7 +98,12 @@ class _PostPageState extends State<PostPage> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return GetBuilder<PostABlogController>(builder: (postBlogController){
+    return WillPopScope(
+        onWillPop: () async{
+          Get.offNamed(RouteHelper.getInitial());
+          return true;
+        },
+        child: GetBuilder<PostABlogController>(builder: (postBlogController){
       return !postBlogController.isLoading ? Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(
@@ -111,7 +116,6 @@ class _PostPageState extends State<PostPage> {
           ),
           leading:  IconButton(
             onPressed: () async{
-              await dep.init();
               Get.offNamed(RouteHelper.getInitial());
             },
             icon: const Icon(CupertinoIcons.back),
@@ -216,14 +220,14 @@ class _PostPageState extends State<PostPage> {
       ) : Scaffold(
         body: Center(
           child: Container(
-          color: Colors.white,
-          width: double.maxFinite,
-          child: SpinKitSpinningLines(
-            color: AppColors.mainColor,
+            color: Colors.white,
+            width: double.maxFinite,
+            child: SpinKitSpinningLines(
+              color: AppColors.mainColor,
+            ),
           ),
         ),
-        ),
       );
-    });
+    }));
   }
 }

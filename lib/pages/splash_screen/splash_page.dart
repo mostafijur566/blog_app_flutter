@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/auth_controller.dart';
+import '../../controllers/category_controller.dart';
+import '../../controllers/post_controller.dart';
+import '../../controllers/user_controller.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -42,6 +45,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
+
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
