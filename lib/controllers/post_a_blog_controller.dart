@@ -24,7 +24,7 @@ class PostABlogController extends GetxController{
         String message;
         message = response.body['message'];
         Get.snackbar(
-            'Success!', message,
+            'Successful!', message,
             colorText: Colors.white,
             backgroundColor: Colors.green
         );
@@ -36,7 +36,6 @@ class PostABlogController extends GetxController{
             colorText: Colors.white,
             backgroundColor: Colors.green
         );
-        print(response.body);
       }
     }
     else{

@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                             margin: EdgeInsets.only(
                                 left: screenWidth * 0.02,
                                 right: screenWidth * 0.02),
-                            decoration: BoxDecoration(color: Colors.white),
+                            decoration: BoxDecoration(color: Color(0xFFFDFDFD)),
                             child: Center(
                               child: Text(
                                 categories.categories[index].name,

@@ -37,13 +37,15 @@ class AccountWidget extends StatelessWidget {
         children: [
           appIcon,
           SizedBox(width:20,),
-          Text(text,
-            maxLines: 1,
-            overflow: overflow,
-            style: TextStyle(
-              color: color,
-              fontWeight: FontWeight.w400,
-              fontSize: size == 0 ? 20 : size
+          Flexible(
+            child: Text(text,
+              maxLines: 1,
+              overflow: overflow,
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w400,
+                fontSize: size == 0 ? 20 : size
+              ),
             ),
           )
         ],
