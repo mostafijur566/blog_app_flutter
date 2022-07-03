@@ -7,4 +7,5 @@ class AppColors{
   static final Color userNameColor = const Color(0xFF9E70F8);
   static final Color dividerColor = const Color(0xFFC9CCD1);
   static final Color iconColor = const Color(0xFFA6A184);
+  static final Color cardColor = const Color(0xFFfafafa);
 }

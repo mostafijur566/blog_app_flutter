@@ -6,7 +6,6 @@ class UserInfoRepo extends GetxService{
   UserInfoRepo({required this.apiClient});
 
   Future<Response> getUserInfo(String user) async{
-    print(user);
     return await apiClient.getData("get-other-user/$user/");
   }
 }

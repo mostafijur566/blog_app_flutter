@@ -6,9 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/auth_controller.dart';
-import '../../controllers/category_controller.dart';
-import '../../controllers/post_controller.dart';
-import '../../controllers/user_controller.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -34,7 +31,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin{
         () async{
           if(Get.find<AuthController>().userLoggedIn()){
             await Get.find<AuthController>().loggedInUser();
-            Get.toNamed(RouteHelper.getInitial());
+            Get.offNamed(RouteHelper.getInitial());
           }
           else{
             Get.offNamed(RouteHelper.getSignInPage());
@@ -59,7 +56,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin{
           ScaleTransition(
             scale: animation,
             child: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/logo.png',),
+              backgroundImage: const AssetImage('assets/images/logo.png',),
               backgroundColor: Colors.white,
               radius: screenHeight * 0.1,
             ),

@@ -15,6 +15,8 @@ import 'package:blog_app_flutter/utils/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
+
+
 Future<void> init()async{
 
   final sharedPreferences = await SharedPreferences.getInstance();
@@ -32,9 +34,9 @@ Future<void> init()async{
 
 
   Get.lazyPut(() => AuthController(authRepo: Get.find()));
-  Get.lazyPut(() => CategoryController(categoryRepo: Get.find()));
-  Get.lazyPut(() => PostController(postRepo: Get.find()));
-  Get.lazyPut(() => UserController(userRepo: Get.find()));
-  Get.lazyPut(() => PostABlogController(postABlogRepo: Get.find()));
-  Get.lazyPut(() => UserInfoController(userInfoRepo: Get.find()));
+  Get.lazyPut(() => CategoryController(categoryRepo: Get.find()), fenix: true);
+  Get.lazyPut(() => PostController(postRepo: Get.find()), fenix: true);
+  Get.lazyPut(() => UserController(userRepo: Get.find()), fenix: true);
+  Get.lazyPut(() => PostABlogController(postABlogRepo: Get.find()), fenix: true);
+  Get.lazyPut(() => UserInfoController(userInfoRepo: Get.find()), fenix: true);
 }

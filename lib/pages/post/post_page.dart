@@ -47,7 +47,6 @@ class _PostPageState extends State<PostPage> {
     setState(() {
       user = Get.find<UserController>().username!;
     });
-    print(user);
     await dep.init();
   }
 
@@ -83,7 +82,7 @@ class _PostPageState extends State<PostPage> {
       postABlogController.postBlog(postABlogModel).then((status) async{
         if(status.isSuccess){
           await dep.init();
-          Get.offNamed(RouteHelper.getInitial());
+          Get.toNamed(RouteHelper.getInitial());
         }
         else{
           print(status.message);
@@ -95,139 +94,137 @@ class _PostPageState extends State<PostPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    Get.lazyPut(() => PostABlogController(postABlogRepo: Get.find()));
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return WillPopScope(
-        onWillPop: () async{
-          Get.offNamed(RouteHelper.getInitial());
-          return true;
-        },
-        child: GetBuilder<PostABlogController>(builder: (postBlogController){
+    return GetBuilder<PostABlogController>(builder: (postBlogController){
       return !postBlogController.isLoading ? Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: AppColors.mainColor, //change your color here
-          ),
-          backgroundColor: Colors.white,
-          title: Text(
-            'Create post',
-            style: TextStyle(color: AppColors.userNameColor),
-          ),
-          leading:  IconButton(
-            onPressed: () async{
-              Get.offNamed(RouteHelper.getInitial());
-            },
-            icon: const Icon(CupertinoIcons.back),
-          ),
-          automaticallyImplyLeading: false,
-          actions: [
-            GestureDetector(
-              onTap: () {
-                postBlog(postBlogController);
-              },
-              child: Row(
-                children: [
-                  Text(
-                    'POST',
-                    style: TextStyle(
-                        color: AppColors.userNameColor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(width: screenWidth * 0.015,),
-                  Icon(
-                    Icons.post_add,
-                    color: AppColors.userNameColor,
-                  ),
-                  SizedBox(width: screenWidth * 0.015,),
-                ],
-              ),
-            )
-          ],
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  top: screenHeight * 0.02,
-                  left: screenHeight * 0.01,
-                  bottom: screenHeight * 0.02),
-              child: Text(
-                user.isEmpty ? '' :'@$user',
+    appBar: AppBar(
+      iconTheme: IconThemeData(
+        color: AppColors.mainColor, //change your color here
+      ),
+      backgroundColor: Colors.white,
+      title: Text(
+        'Create post',
+        style: TextStyle(color: AppColors.userNameColor),
+      ),
+      leading:  IconButton(
+        onPressed: () async{
+          Get.back();
+        },
+        icon: const Icon(CupertinoIcons.back),
+      ),
+      automaticallyImplyLeading: false,
+      actions: [
+        GestureDetector(
+          onTap: () {
+            postBlog(postBlogController);
+          },
+          child: Row(
+            children: [
+              Text(
+                'POST',
                 style: TextStyle(
                     color: AppColors.userNameColor,
-                    fontSize: screenWidth * 0.04,
                     fontWeight: FontWeight.bold),
               ),
-            ),
-            FormHelper.dropDownWidgetWithLabel(
-              context,
-              "Category",
-              "Select category",
-              this.categoryId,
-              this.category,
-                  (onChangedVal) {
-                categoryId = onChangedVal;
-                print(categoryId);
-              },
-                  (onValidate) {
-                if (onValidate == null) {
-                  return 'Please select category';
-                }
-                return null;
-              },
-              borderColor: AppColors.mainColor,
-              borderFocusColor: AppColors.mainColor,
-              borderRadius: 10,
-              optionValue: "id",
-              optionLabel: "name",
-            ),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            TextField(
-              minLines: 1,
-              maxLines: 3,
-              controller: headlineController,
-              decoration: InputDecoration(
-                hintText: "Head line",
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                  BorderSide(width: 1.0, color: AppColors.userNameColor),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide:
-                  BorderSide(width: 1.0, color: AppColors.userNameColor),
-                ),
+              SizedBox(width: screenWidth * 0.015,),
+              Icon(
+                Icons.post_add,
+                color: AppColors.userNameColor,
               ),
-            ),
-            Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left: screenWidth * 0.02, right: screenWidth * 0.02),
-                  child: TextField(
-                    expands: true,
-                    maxLines: null,
-                    controller: bodyController,
-                    textAlign: TextAlign.justify,
-                    decoration: InputDecoration(
-                        hintText: "What's on you mind?", border: InputBorder.none),
-                  ),
-                ))
-          ],
+              SizedBox(width: screenWidth * 0.015,),
+            ],
+          ),
+        )
+      ],
+    ),
+    body: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              top: screenHeight * 0.02,
+              left: screenHeight * 0.01,
+              bottom: screenHeight * 0.02),
+          child: Text(
+            user.isEmpty ? '' :'@$user',
+            style: TextStyle(
+                color: AppColors.userNameColor,
+                fontSize: screenWidth * 0.04,
+                fontWeight: FontWeight.bold),
+          ),
         ),
-      ) : Scaffold(
-        body: Center(
-          child: Container(
-            color: Colors.white,
-            width: double.maxFinite,
-            child: SpinKitSpinningLines(
-              color: AppColors.mainColor,
+        FormHelper.dropDownWidgetWithLabel(
+          context,
+          "Category",
+          "Select category",
+          this.categoryId,
+          this.category,
+              (onChangedVal) {
+            categoryId = onChangedVal;
+            print(categoryId);
+          },
+              (onValidate) {
+            if (onValidate == null) {
+              return 'Please select category';
+            }
+            return null;
+          },
+          borderColor: AppColors.mainColor,
+          borderFocusColor: AppColors.mainColor,
+          borderRadius: 10,
+          optionValue: "id",
+          optionLabel: "name",
+        ),
+        SizedBox(
+          height: screenHeight * 0.02,
+        ),
+        TextField(
+          minLines: 1,
+          maxLines: 3,
+          controller: headlineController,
+          decoration: InputDecoration(
+            hintText: "Head line",
+            focusedBorder: OutlineInputBorder(
+              borderSide:
+              BorderSide(width: 1.0, color: AppColors.userNameColor),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+              BorderSide(width: 1.0, color: AppColors.userNameColor),
             ),
           ),
         ),
+        Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: screenWidth * 0.02, right: screenWidth * 0.02),
+              child: TextField(
+                expands: true,
+                maxLines: null,
+                controller: bodyController,
+                textAlign: TextAlign.justify,
+                decoration: InputDecoration(
+                    hintText: "What's on you mind?", border: InputBorder.none),
+              ),
+            ))
+      ],
+    ),
+      ) : Scaffold(
+    body: Center(
+      child: Container(
+        color: Colors.white,
+        width: double.maxFinite,
+        child: SpinKitSpinningLines(
+          color: AppColors.mainColor,
+        ),
+      ),
+    ),
       );
-    }));
+    });
   }
 }

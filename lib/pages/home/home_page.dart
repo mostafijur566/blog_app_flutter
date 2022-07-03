@@ -1,4 +1,5 @@
 import 'package:blog_app_flutter/controllers/category_controller.dart';
+import 'package:blog_app_flutter/controllers/post_a_blog_controller.dart';
 import 'package:blog_app_flutter/controllers/post_controller.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
@@ -50,6 +51,8 @@ class _HomePageState extends State<HomePage> {
       print('not all post');
     }
     await dep.init();
+    Get.lazyPut(() => UserController(userRepo: Get.find()));
+    Get.lazyPut(() => PostABlogController(postABlogRepo: Get.find()));
   }
 
   
@@ -190,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.only(top: screenHeight * 0.015),
                           margin: EdgeInsets.only(top: screenHeight * 0.015),
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: AppColors.cardColor,
                               borderRadius:
                               BorderRadius.circular(screenHeight * 0.015)),
                           child: Column(
