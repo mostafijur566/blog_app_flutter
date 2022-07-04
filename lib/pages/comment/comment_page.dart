@@ -1,13 +1,20 @@
+import 'package:blog_app_flutter/controllers/do_comment_controller.dart';
+import 'package:blog_app_flutter/controllers/get_comment_controller.dart';
+import 'package:blog_app_flutter/controllers/user_controller.dart';
+import 'package:blog_app_flutter/models/do_comment_model.dart';
 import 'package:blog_app_flutter/pages/account/user_profile_page.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/comment_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CommentPage extends StatefulWidget {
-  const CommentPage({Key? key}) : super(key: key);
+  CommentPage({Key? key, required this.postID,}) : super(key: key);
+
+  final int postID;
 
   @override
   State<CommentPage> createState() => _CommentPageState();
@@ -15,8 +22,56 @@ class CommentPage extends StatefulWidget {
 
 class _CommentPageState extends State<CommentPage> {
 
+  TextEditingController commentController = TextEditingController();
+
+  var user;
+
+  @override
+  void initState(){
+    super.initState();
+    loadResource();
+  }
+
+  Future<void> loadResource() async{
+    await Get.find<UserController>().getUserInfo();
+    await Get.find<GetCommentController>().getComments(widget.postID.toString());
+    user = Get.find<UserController>().username!;
+  }
+
+  Future<void> doComment(DoCommentController doCommentController) async{
+    String comment;
+    int postID;
+    String userID;
+
+    userID = user;
+
+    comment = commentController.text;
+    postID = widget.postID;
+
+    if(comment.isEmpty){
+      Get.snackbar('Oops!', 'Comment field cannot be empty',
+          colorText: Colors.white,
+          backgroundColor: Colors.redAccent
+      );
+    }
+
+    else{
+      DoCommentModel doCommentModel = DoCommentModel(postID: postID, userID: userID, comment: comment);
+      doCommentController.doComment(doCommentModel).then((status) async{
+        if(status.isSuccess){
+          print('success');
+        }
+        else{
+          print(status.message);
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    print(widget.postID);
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -47,27 +102,44 @@ class _CommentPageState extends State<CommentPage> {
                     ),
                     Expanded(
                       child: CommentTextField(
+                        controller: commentController,
                           hintText: 'Write your comment', icon: Icons.comment),
                     ),
                     SizedBox(
                       width: screenWidth * 0.04,
                     ),
-                    Icon(
-                      Icons.send,
-                      color: AppColors.userNameColor,
-                    ),
+                    GetBuilder<DoCommentController>(builder: (comment){
+                      return IconButton(
+                        onPressed: (){
+                          doComment(comment);
+                          loadResource();
+                          commentController.clear();
+                        },
+                        icon: Icon(
+                          Icons.send,
+                          color: AppColors.userNameColor,
+                        ),
+                      );
+                    })
                   ],
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              Expanded(
-                child: ListView.builder(
+              GetBuilder<GetCommentController>(builder: (allComments){
+                return !allComments.isLoading ? Expanded(
+                  child: Center(
+                    child: SpinKitFadingCube(
+                      color: AppColors.mainColor,
+                    ),
+                  ),
+                ) : Expanded(
+                  child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: 5,
+                    itemCount: allComments.comments.length,
                     itemBuilder: (context, index) {
                       return Container(
                         child: Column(
@@ -79,23 +151,24 @@ class _CommentPageState extends State<CommentPage> {
                             GestureDetector(
                               onTap: (){
                                 //TODO: need to pass parameters
-                                //Get.to(UserProfilePage());
+                                Get.to(UserProfilePage(userID: allComments.comments[index].userId,));
                               },
-                              child: Text('@mosta',
+                              child: Text(
+                                '@${allComments.comments[index].userId!}',
                                 style: TextStyle(
-                                  color: AppColors.userNameColor,
-                                  fontSize: screenWidth * 0.04,
-                                  fontWeight: FontWeight.bold
+                                    color: AppColors.userNameColor,
+                                    fontSize: screenWidth * 0.04,
+                                    fontWeight: FontWeight.bold
                                 ),
                               ),
                             ),
                             SizedBox(
                               height: screenHeight * 0.005,
                             ),
-                            Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
+                            Text(allComments.comments[index].comment,
                               style: TextStyle(
-                                fontSize: screenHeight * 0.019,
-                                color: AppColors.smallTxtColor
+                                  fontSize: screenHeight * 0.019,
+                                  color: AppColors.smallTxtColor
                               ),
                               textAlign: TextAlign.justify,
                             ),
@@ -110,8 +183,9 @@ class _CommentPageState extends State<CommentPage> {
                         ),
                       );
                     },
-                ),
-              ),
+                  ),
+                );
+              })
             ],
           ),
         ),

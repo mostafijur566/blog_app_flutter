@@ -1,6 +1,7 @@
 import 'package:blog_app_flutter/controllers/category_controller.dart';
 import 'package:blog_app_flutter/controllers/post_a_blog_controller.dart';
 import 'package:blog_app_flutter/controllers/post_controller.dart';
+import 'package:blog_app_flutter/pages/comment/comment_page.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/custom_loading.dart';
@@ -273,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                                     right: screenWidth * 0.02),
                                 child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(RouteHelper.getCommentPage());
+                                      Get.to(CommentPage(postID: post.allPostsList[index].id));
                                     },
                                     child: CommentWidget()
                                 ),

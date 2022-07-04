@@ -108,7 +108,7 @@ class UserPostPage extends StatelessWidget {
                       right: screenWidth * 0.02),
                   child: GestureDetector(
                       onTap: () {
-                        Get.to(CommentPage());
+                        //Get.to(CommentPage());
                       },
                       child: CommentWidget()
                   ),

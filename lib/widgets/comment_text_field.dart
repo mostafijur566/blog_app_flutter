@@ -5,11 +5,13 @@ import '../utils/colors.dart';
 class CommentTextField extends StatelessWidget {
   CommentTextField({Key? key,
     required this.hintText,
-    required this.icon
+    required this.icon,
+    required this.controller
   }) : super(key: key);
 
   final String hintText;
   final IconData icon;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class CommentTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(30)
       ),
       child: TextField(
+        controller: controller,
         minLines: 1,
         maxLines: 5,
         decoration: InputDecoration(

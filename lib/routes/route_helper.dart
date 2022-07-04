@@ -24,7 +24,7 @@ class RouteHelper{
   static String getSplashPage() => splashPage;
   static String getInitial() => initial;
   static String getAccountPage() => accountPage;
-  static String getUserProfilePage() => userProfilePage;
+  static String getUserProfilePage(String userID) => '$userProfilePage?pageID=$userID';
   static String getSignInPage() => signInPage;
   static String getSignUpPage() => signUpPage;
   static String getCommentPage() => commentPage;
@@ -38,12 +38,17 @@ class RouteHelper{
 
     GetPage(name: userProfilePage, page: () {
       var userID = Get.parameters['userID'];
-      return UserProfilePage(userID: userID!);
+      return UserProfilePage(userID: userID.toString());
     }),
 
     GetPage(name: signInPage, page: () => SignInPage()),
     GetPage(name: signUpPage, page: () => SignUpPage()),
-    GetPage(name: commentPage, page: () => CommentPage()),
+
+    GetPage(name: commentPage, page: () {
+      var postID = Get.parameters['postID'];
+      return CommentPage(postID: int.parse(postID!));
+    }),
+
     GetPage(name: postPage, page: () => PostPage()),
     GetPage(name: userPostPage, page: () => UserPostPage()),
   ];

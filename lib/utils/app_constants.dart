@@ -15,6 +15,8 @@ class AppConstants{
 
   static const String POST_BLOG_ENDPOINT = 'post-blog/';
 
+  static const String DO_COMMENT_ENDPOINT = 'post-comment/';
+
   static const String EMAIL = '';
 
   static const String PASSWORD = '';
