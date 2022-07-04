@@ -49,3 +49,38 @@ Below are the information about packages used in this project.
 ### API Used
 
 `https://github.com/mostafijur566/blog_app_system`
+
+### Directory Structure
+
+The project directory structure is as follows:
+
+```
+├── android
+├── assets
+├── build
+├── ios
+├── lib
+    ├── controller
+    ├── data
+    ├── helper
+    ├── models
+    ├── pages
+    ├── routes
+    ├── utils
+    ├── widgets
+    ├── main.dart
+├── pubspec.lock
+├── pubspec.yaml
+
+```
+
+## :heart: Contributor
+
+Made by [Mostafijur Rahman](https://github.com/mostafijur566)
+
+## :camera_flash: Screenshots
+
+<img src="ss.1.PNG" width="350" title="hover text">   <img src="ss.5.PNG" width="350" title="hover text">
+<img src="ss.2.PNG" width="350" title="hover text">   <img src="ss.6.PNG" width="350" title="hover text">   
+<img src="ss.3.PNG" width="350" title="hover text">   <img src="ss.7.PNG" width="350" title="hover text">
+<img src="ss.4.PNG" width="350" title="hover text">
