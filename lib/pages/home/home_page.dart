@@ -1,6 +1,8 @@
 import 'package:blog_app_flutter/controllers/category_controller.dart';
 import 'package:blog_app_flutter/controllers/post_a_blog_controller.dart';
 import 'package:blog_app_flutter/controllers/post_controller.dart';
+import 'package:blog_app_flutter/data/menu_items.dart';
+import 'package:blog_app_flutter/models/menu_item_model.dart';
 import 'package:blog_app_flutter/pages/comment/comment_page.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   int selectedItem = 0;
   int categoryId = 1;
+  var user = '';
 
   loadPost(String id) async{
     await Get.find<PostController>().getPostByCategory(id);
@@ -41,15 +44,17 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadResource() async{
     await Get.find<CategoryController>().getCategoryList();
+
+    await Get.find<UserController>().getUserInfo();
+
+    user = Get.find<UserController>().username!;
+    print(user);
+
     if(selectedItem == 0) {
       await Get.find<PostController>().getPosts();
-      print(categoryId);
-      print('all post');
     }
     else{
       await loadPost(categoryId.toString());
-      print(categoryId);
-      print('not all post');
     }
     await dep.init();
     Get.lazyPut(() => UserController(userRepo: Get.find()));
@@ -204,12 +209,30 @@ class _HomePageState extends State<HomePage> {
                                 padding: EdgeInsets.only(
                                     left: screenWidth * 0.02,
                                     right: screenWidth * 0.02),
-                                child: Text(
-                                post.allPostsList[index].title,
-                                  style: TextStyle(
-                                      color: AppColors.txtHeadLineColor,
-                                      fontSize: screenHeight * 0.025,
-                                      fontWeight: FontWeight.bold),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        post.allPostsList[index].title,
+                                        style: TextStyle(
+                                            color: AppColors.txtHeadLineColor,
+                                            fontSize: screenHeight * 0.025,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    post.allPostsList[index].user == user ? PopupMenuButton<MenuItemModel>(
+                                        onSelected: (item){
+                                          //TODO: edit and delete operation
+                                          print(item.text);
+                                        },
+                                        itemBuilder: (context) => [
+                                          ...MenuItems.allItem.map(buildItem).toList()
+                                        ]
+                                    )
+                                        : Container(),
+
+                                  ],
                                 ),
                               ),
                               Row(
@@ -294,4 +317,17 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  PopupMenuItem<MenuItemModel> buildItem(MenuItemModel item) => PopupMenuItem<MenuItemModel>(
+    value: item,
+      child: Row(
+        children: [
+          Icon(item.icon, color: AppColors.mainColor, size: 20,),
+          SizedBox(
+            width: 12,
+          ),
+          Text(item.text)
+        ],
+      )
+  );
 }

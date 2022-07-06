@@ -135,7 +135,14 @@ class _CommentPageState extends State<CommentPage> {
                     ),
                   ),
                 ) : Expanded(
-                  child: ListView.builder(
+                  child: allComments.comments.isEmpty ? Container(
+                    child: Text('No comments yet!',
+                      style: TextStyle(
+                        color: AppColors.smallTxtColor,
+                        fontSize: screenHeight * 0.02,
+                      ),
+                    ),
+                  ) : ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,

@@ -209,7 +209,7 @@ class _PostPageState extends State<PostPage> {
                 controller: bodyController,
                 textAlign: TextAlign.justify,
                 decoration: InputDecoration(
-                    hintText: "What's on you mind?", border: InputBorder.none),
+                    hintText: "What's on your mind?", border: InputBorder.none),
               ),
             ))
       ],

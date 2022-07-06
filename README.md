@@ -2,7 +2,7 @@
 
 > "Blogo App"
 
-It's a flutter app with integration of RestfulAPI. In this app user can post blog and comment other's blog. 
+It's a flutter app with integration of RestfulAPI. In this app user can post his blog, and comment other's blog.
 
 ## :bulb: Key Features (or What will you learn, if you are here to learn)
 
