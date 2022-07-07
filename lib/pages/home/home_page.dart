@@ -1,6 +1,7 @@
 import 'package:blog_app_flutter/controllers/category_controller.dart';
 import 'package:blog_app_flutter/controllers/post_a_blog_controller.dart';
 import 'package:blog_app_flutter/controllers/post_controller.dart';
+import 'package:blog_app_flutter/controllers/post_delete_controller.dart';
 import 'package:blog_app_flutter/data/menu_items.dart';
 import 'package:blog_app_flutter/models/menu_item_model.dart';
 import 'package:blog_app_flutter/pages/comment/comment_page.dart';
@@ -32,9 +33,14 @@ class _HomePageState extends State<HomePage> {
   int selectedItem = 0;
   int categoryId = 1;
   var user = '';
+  var postDeleteController;
 
   loadPost(String id) async{
     await Get.find<PostController>().getPostByCategory(id);
+  }
+
+  deletePost(String id) async{
+    await Get.find<PostDeleteController>().deleteData(id);
   }
 
   @override
@@ -45,11 +51,9 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadResource() async{
     await Get.find<CategoryController>().getCategoryList();
-
     await Get.find<UserController>().getUserInfo();
 
     user = Get.find<UserController>().username!;
-    print(user);
 
     if(selectedItem == 0) {
       await Get.find<PostController>().getPosts();
@@ -226,9 +230,11 @@ class _HomePageState extends State<HomePage> {
                                         onSelected: (item){
                                           //TODO: edit and delete operation
                                           if(item.text == 'Edit') {
-                                            print('edit clicked');
                                             Get.to(PostPage(id: post.allPostsList[index].id.toString(),));
-                                            //print(post.allPostsList[index].id);
+                                          }
+                                          else{
+                                            deletePost(post.allPostsList[index].id.toString());
+                                            _loadResource();
                                           }
                                         },
                                         itemBuilder: (context) => [

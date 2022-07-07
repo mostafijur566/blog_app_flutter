@@ -4,6 +4,7 @@ import 'package:blog_app_flutter/controllers/do_comment_controller.dart';
 import 'package:blog_app_flutter/controllers/get_comment_controller.dart';
 import 'package:blog_app_flutter/controllers/post_a_blog_controller.dart';
 import 'package:blog_app_flutter/controllers/post_controller.dart';
+import 'package:blog_app_flutter/controllers/post_delete_controller.dart';
 import 'package:blog_app_flutter/controllers/post_update_controller.dart';
 import 'package:blog_app_flutter/controllers/single_post_controller.dart';
 import 'package:blog_app_flutter/controllers/user_controller.dart';
@@ -14,6 +15,7 @@ import 'package:blog_app_flutter/data/repository/category_repo.dart';
 import 'package:blog_app_flutter/data/repository/do_comment_repo.dart';
 import 'package:blog_app_flutter/data/repository/get_comment_repo.dart';
 import 'package:blog_app_flutter/data/repository/post_a_blog_repo.dart';
+import 'package:blog_app_flutter/data/repository/post_delete_repo.dart';
 import 'package:blog_app_flutter/data/repository/post_repo.dart';
 import 'package:blog_app_flutter/data/repository/post_update_repo.dart';
 import 'package:blog_app_flutter/data/repository/single_post_repo.dart';
@@ -43,6 +45,7 @@ Future<void> init()async{
   Get.lazyPut(() => GetCommentRepo(apiClient: Get.find()));
   Get.lazyPut(() => SinglePostRepo(apiClient: Get.find()));
   Get.lazyPut(() => PostUpdateRepo(apiClient: Get.find()));
+  Get.lazyPut(() => PostDeleteRepo(apiClient: Get.find()));
 
   Get.lazyPut(() => AuthController(authRepo: Get.find()));
   Get.lazyPut(() => CategoryController(categoryRepo: Get.find()), fenix: true);
@@ -54,4 +57,5 @@ Future<void> init()async{
   Get.lazyPut(() => GetCommentController(getCommentRepo: Get.find()), fenix: true);
   Get.lazyPut(() => SinglePostController(singlePostRepo: Get.find()), fenix: true);
   Get.lazyPut(() => PostUpdateController(postUpdateRepo: Get.find()), fenix: true);
+  Get.lazyPut(() => PostDeleteController(postDeleteRepo: Get.find()));
 }
