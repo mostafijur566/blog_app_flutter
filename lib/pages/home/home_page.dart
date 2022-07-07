@@ -4,6 +4,7 @@ import 'package:blog_app_flutter/controllers/post_controller.dart';
 import 'package:blog_app_flutter/data/menu_items.dart';
 import 'package:blog_app_flutter/models/menu_item_model.dart';
 import 'package:blog_app_flutter/pages/comment/comment_page.dart';
+import 'package:blog_app_flutter/pages/post/post_page.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/custom_loading.dart';
@@ -224,7 +225,11 @@ class _HomePageState extends State<HomePage> {
                                     post.allPostsList[index].user == user ? PopupMenuButton<MenuItemModel>(
                                         onSelected: (item){
                                           //TODO: edit and delete operation
-                                          print(item.text);
+                                          if(item.text == 'Edit') {
+                                            print('edit clicked');
+                                            Get.to(PostPage(id: post.allPostsList[index].id.toString(),));
+                                            //print(post.allPostsList[index].id);
+                                          }
                                         },
                                         itemBuilder: (context) => [
                                           ...MenuItems.allItem.map(buildItem).toList()

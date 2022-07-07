@@ -1,7 +1,10 @@
 import 'package:blog_app_flutter/controllers/category_controller.dart';
 import 'package:blog_app_flutter/controllers/post_a_blog_controller.dart';
+import 'package:blog_app_flutter/controllers/post_update_controller.dart';
+import 'package:blog_app_flutter/controllers/single_post_controller.dart';
 import 'package:blog_app_flutter/controllers/user_controller.dart';
 import 'package:blog_app_flutter/models/post_a_blog_model.dart';
+import 'package:blog_app_flutter/models/single_post_model.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/custom_loading.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +17,9 @@ import 'package:blog_app_flutter/helper/dependencies.dart' as dep;
 import '../../routes/route_helper.dart';
 
 class PostPage extends StatefulWidget {
-  const PostPage({Key? key}) : super(key: key);
+  PostPage({Key? key, this.id}) : super(key: key);
+
+  final String? id;
 
   @override
   State<PostPage> createState() => _PostPageState();
@@ -28,6 +33,9 @@ class _PostPageState extends State<PostPage> {
 
   String? categoryId;
   var user = '';
+  var title = '';
+  var body = '';
+  bool isLoading = false;
 
   var categories = Get.find<CategoryController>().categories;
 
@@ -44,6 +52,17 @@ class _PostPageState extends State<PostPage> {
 
   Future<void>loadResource() async{
     await Get.find<UserController>().getUserInfo();
+
+    if(widget.id!=null){
+      await Get.find<SinglePostController>().getData(widget.id.toString());
+      title = Get.find<SinglePostController>().title!;
+      body = Get.find<SinglePostController>().body!;
+
+      headlineController.text = title;
+      bodyController.text = body;
+      categoryId = Get.find<SinglePostController>().categoryId.toString();
+    }
+
     setState(() {
       user = Get.find<UserController>().username!;
     });
@@ -78,8 +97,51 @@ class _PostPageState extends State<PostPage> {
       );
     }
     else{
+      setState(() {
+        isLoading = true;
+      });
+
       PostABlogModel postABlogModel = PostABlogModel(user: user, categoryId: int.parse(categoryId!), title: headLine, body: body);
       postABlogController.postBlog(postABlogModel).then((status) async{
+        if(status.isSuccess){
+          await dep.init();
+          Get.toNamed(RouteHelper.getInitial());
+        }
+        else{
+          print(status.message);
+        }
+      });
+    }
+  }
+
+  Future<void> updateBlog(PostUpdateController postUpdateController) async{
+
+    String headLine;
+    String body;
+
+
+    headLine = headlineController.text;
+    body = bodyController.text;
+
+     if(title.isEmpty){
+      Get.snackbar('Oops!', 'Head line field cannot be empty',
+          colorText: Colors.white,
+          backgroundColor: Colors.redAccent
+      );
+    }
+    else if (body.isEmpty){
+      Get.snackbar('Oops!', 'Body field cannot be empty',
+          colorText: Colors.white,
+          backgroundColor: Colors.redAccent
+      );
+    }
+    else{
+      setState(() {
+        isLoading = true;
+      });
+
+      SinglePostModel singlePostModel = SinglePostModel(user: user, categoryId: int.parse(categoryId!), title: headLine, body: body);
+      postUpdateController.updateData(widget.id.toString(), singlePostModel).then((status) async{
         if(status.isSuccess){
           await dep.init();
           Get.toNamed(RouteHelper.getInitial());
@@ -101,7 +163,7 @@ class _PostPageState extends State<PostPage> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return GetBuilder<PostABlogController>(builder: (postBlogController){
-      return !postBlogController.isLoading ? Scaffold(
+      return !isLoading ? Scaffold(
     appBar: AppBar(
       iconTheme: IconThemeData(
         color: AppColors.mainColor, //change your color here
@@ -121,7 +183,15 @@ class _PostPageState extends State<PostPage> {
       actions: [
         GestureDetector(
           onTap: () {
-            postBlog(postBlogController);
+
+            var updateController = Get.find<PostUpdateController>();
+
+            if(widget.id != null){
+              updateBlog(updateController);
+            }
+            else{
+              postBlog(postBlogController);
+            }
           },
           child: Row(
             children: [

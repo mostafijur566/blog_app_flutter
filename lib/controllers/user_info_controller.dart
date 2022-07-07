@@ -21,7 +21,6 @@ class UserInfoController extends GetxController{
       username = UserInfoModel.fromJson(response.body).username;
       totalPost = UserInfoModel.fromJson(response.body).totalPost;
 
-      print('successfully!');
       _isLoading = true;
       update();
     }
