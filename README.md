@@ -6,7 +6,6 @@ It's a flutter app with integration of RestfulAPI. In this app user can post his
 
 ## :bulb: Key Features (or What will you learn, if you are here to learn)
 
-- [x] Auth system
 - [x] RestfulAPI Integration
 - [x] GetX State Management
 
