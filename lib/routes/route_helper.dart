@@ -50,6 +50,5 @@ class RouteHelper{
     }),
 
     GetPage(name: postPage, page: () => PostPage()),
-    GetPage(name: userPostPage, page: () => UserPostPage()),
   ];
 }

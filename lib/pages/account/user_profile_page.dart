@@ -104,7 +104,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ),
                         GestureDetector(
                           onTap: (){
-                            Get.to(UserPostPage());
+                            Get.to(UserPostPage(id: userInfo.username!,));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
