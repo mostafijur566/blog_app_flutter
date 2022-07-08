@@ -8,7 +8,6 @@ import 'package:blog_app_flutter/pages/post/post_page.dart';
 import 'package:blog_app_flutter/pages/splash_screen/splash_page.dart';
 import 'package:get/get.dart';
 
-import '../pages/post/user_post_page.dart';
 
 class RouteHelper{
   static const splashPage = '/splash-page';

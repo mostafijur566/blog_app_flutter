@@ -22,7 +22,7 @@ class CommentTextField extends StatelessWidget {
             BoxShadow(
               blurRadius: 10,
               spreadRadius: 7,
-              offset: Offset(1, 10),
+              offset: const Offset(1, 10),
               color: Colors.grey.withOpacity(0.2),
             ),
           ],
@@ -40,14 +40,14 @@ class CommentTextField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                   width: 1.0,
                   color: AppColors.userNameColor
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                   width: 1.0,
                   color: AppColors.userNameColor
               ),

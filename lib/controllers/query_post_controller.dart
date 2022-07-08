@@ -1,4 +1,5 @@
 import 'package:blog_app_flutter/data/repository/query_post_repo.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/post_model.dart';
@@ -22,7 +23,10 @@ class QueryPostController extends GetxController{
       update();
     }
     else{
-      print('shit!');
+      Get.snackbar('Error!', 'Something went wrong!',
+          colorText: Colors.white,
+          backgroundColor: Colors.redAccent
+      );
     }
   }
 }

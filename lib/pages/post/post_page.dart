@@ -6,7 +6,6 @@ import 'package:blog_app_flutter/controllers/user_controller.dart';
 import 'package:blog_app_flutter/models/post_a_blog_model.dart';
 import 'package:blog_app_flutter/models/single_post_model.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
-import 'package:blog_app_flutter/widgets/custom_loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -17,7 +16,7 @@ import 'package:blog_app_flutter/helper/dependencies.dart' as dep;
 import '../../routes/route_helper.dart';
 
 class PostPage extends StatefulWidget {
-  PostPage({Key? key, this.id}) : super(key: key);
+  const PostPage({Key? key, this.id}) : super(key: key);
 
   final String? id;
 
@@ -108,7 +107,6 @@ class _PostPageState extends State<PostPage> {
           Get.toNamed(RouteHelper.getInitial());
         }
         else{
-          print(status.message);
         }
       });
     }
@@ -147,7 +145,6 @@ class _PostPageState extends State<PostPage> {
           Get.toNamed(RouteHelper.getInitial());
         }
         else{
-          print(status.message);
         }
       });
     }
@@ -232,11 +229,10 @@ class _PostPageState extends State<PostPage> {
           context,
           "Category",
           "Select category",
-          this.categoryId,
-          this.category,
+          categoryId,
+          category,
               (onChangedVal) {
             categoryId = onChangedVal;
-            print(categoryId);
           },
               (onValidate) {
             if (onValidate == null) {
@@ -278,7 +274,7 @@ class _PostPageState extends State<PostPage> {
                 maxLines: null,
                 controller: bodyController,
                 textAlign: TextAlign.justify,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     hintText: "What's on your mind?", border: InputBorder.none),
               ),
             ))

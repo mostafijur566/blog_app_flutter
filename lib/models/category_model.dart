@@ -4,8 +4,8 @@ class Category {
   List<Categories> get categories => _categories;
 
   Category({required totalCategories, required categories}){
-    this._totalCategories = totalCategories;
-    this._categories = categories;
+    _totalCategories = totalCategories;
+    _categories = categories;
   }
 
   Category.fromJson(Map<String, dynamic> json) {
@@ -13,7 +13,7 @@ class Category {
     if (json['categories'] != null) {
       _categories = <Categories>[];
       json['categories'].forEach((v) {
-        _categories.add(new Categories.fromJson(v));
+        _categories.add(Categories.fromJson(v));
       });
     }
   }
@@ -32,11 +32,4 @@ class Categories {
     createdAt = json['created_at'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['created_at'] = this.createdAt;
-    return data;
-  }
 }

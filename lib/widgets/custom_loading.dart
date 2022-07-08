@@ -10,7 +10,7 @@ class CustomLoading extends StatelessWidget {
     return Container(
       color: Colors.white,
       width: double.maxFinite,
-      child: SpinKitWave(
+      child: const SpinKitWave(
         color: AppColors.mainColor,
       ),
     );

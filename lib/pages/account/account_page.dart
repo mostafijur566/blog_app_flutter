@@ -1,13 +1,10 @@
 import 'package:blog_app_flutter/controllers/auth_controller.dart';
-import 'package:blog_app_flutter/controllers/category_controller.dart';
-import 'package:blog_app_flutter/controllers/post_controller.dart';
 import 'package:blog_app_flutter/controllers/user_controller.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/account_widget.dart';
 import 'package:blog_app_flutter/widgets/text_field_loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../widgets/app_icon.dart';
 import 'package:get/get.dart';
@@ -65,7 +62,7 @@ class _AccountPageState extends State<AccountPage> {
                 height: screenHeight * 0.02,
               ),
               GetBuilder<UserController>(builder: (userInfo){
-                return !userInfo.isLoading ? TextFieldLoading() :
+                return !userInfo.isLoading ? const TextFieldLoading() :
                 Column(
                   children: [
                     AccountWidget(appIcon: AppIcon(

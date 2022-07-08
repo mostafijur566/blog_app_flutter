@@ -4,14 +4,13 @@ import 'package:blog_app_flutter/widgets/custom_loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../routes/route_helper.dart';
 import '../../utils/colors.dart';
 import '../../widgets/account_widget.dart';
 import '../../widgets/app_icon.dart';
 import 'package:get/get.dart';
 
 class UserProfilePage extends StatefulWidget {
-  UserProfilePage({Key? key, required this.userID}) : super(key: key);
+  const UserProfilePage({Key? key, required this.userID}) : super(key: key);
   final String userID;
 
   @override
@@ -76,9 +75,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              !userInfo.isLoading ? CustomLoading() : Expanded(
+              !userInfo.isLoading ? const CustomLoading() : Expanded(
                   child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     child: Column(
                       children: [
                         AccountWidget(appIcon: AppIcon(

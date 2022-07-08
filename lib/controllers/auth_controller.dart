@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:blog_app_flutter/data/repository/auth_repo.dart';
 import 'package:blog_app_flutter/models/response_model.dart';
@@ -34,7 +33,6 @@ class AuthController extends GetxController implements GetxService{
           colorText: Colors.white,
           backgroundColor: Colors.green
         );
-        print(response.body["token"]);
       }
     }
     else{

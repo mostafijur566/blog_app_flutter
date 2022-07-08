@@ -4,8 +4,8 @@ class CommentModel {
   List<Comment> get comment => _comment;
 
   CommentModel({required totalComment, required comment}){
-    this._totalComment = totalComment;
-    this._comment = comment;
+    _totalComment = totalComment;
+    _comment = comment;
   }
 
   CommentModel.fromJson(Map<String, dynamic> json) {
@@ -13,7 +13,7 @@ class CommentModel {
     if (json['comment'] != null) {
       _comment = <Comment>[];
       json['comment'].forEach((v) {
-        _comment.add(new Comment.fromJson(v));
+        _comment.add(Comment.fromJson(v));
       });
     }
   }

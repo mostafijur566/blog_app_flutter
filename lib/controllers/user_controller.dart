@@ -1,4 +1,5 @@
 import 'package:blog_app_flutter/data/repository/user_repo.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/user_info_model.dart';
@@ -24,7 +25,10 @@ class UserController extends GetxController{
       update();
     }
     else{
-      print(response.statusCode);
+      Get.snackbar('Error!', 'Something went wrong!',
+          colorText: Colors.white,
+          backgroundColor: Colors.redAccent
+      );
     }
   }
 }

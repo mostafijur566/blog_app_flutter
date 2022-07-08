@@ -70,14 +70,7 @@ class SignUpPage extends StatelessWidget {
 
     else{
       SignUpBody signUpBody = SignUpBody(name: name, email: email, username: user, password: password);
-      authController.registration(signUpBody).then((status){
-        if(status.isSuccess){
-          print("Success registration");
-        }
-        else{
-          print(status.message);
-        }
-      });
+      authController.registration(signUpBody);
     }
   }
 
@@ -91,7 +84,7 @@ class SignUpPage extends StatelessWidget {
       body: SafeArea(
         child: GetBuilder<AuthController>(builder: (_authController){
           return !_authController.isLoading ? SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 SizedBox(
@@ -180,7 +173,7 @@ class SignUpPage extends StatelessWidget {
               ],
             ),
           ) :
-          Center(child: CircularProgressIndicator(color: Colors.white,));
+          const Center(child: CircularProgressIndicator(color: Colors.white,));
         })
       ),
     );

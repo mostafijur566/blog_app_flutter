@@ -19,12 +19,11 @@ class GetCommentController extends GetxController{
       _comments = [];
       _comments.addAll(CommentModel.fromJson(response.body).comment);
       _isLoading = true;
-      print('all comments got');
       update();
     }
 
     else{
-      print(response.statusCode);
+      Get.snackbar('Oops!', 'Something went wrong!');
     }
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'app_icon.dart';
@@ -27,7 +26,7 @@ class AccountWidget extends StatelessWidget {
           color: Colors.white,
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 5),
+            offset: const Offset(0, 5),
             color: Colors.grey.withOpacity(0.2),
             blurRadius: 2
           ),
@@ -36,7 +35,7 @@ class AccountWidget extends StatelessWidget {
       child: Row(
         children: [
           appIcon,
-          SizedBox(width:20,),
+          const SizedBox(width:20,),
           Flexible(
             child: Text(text,
               maxLines: 1,

@@ -13,7 +13,7 @@ class PostCategory {
     if (json['all_posts'] != null) {
       _allPosts = <AllPosts>[];
       json['all_posts'].forEach((v) {
-        _allPosts.add(new AllPosts.fromJson(v));
+        _allPosts.add(AllPosts.fromJson(v));
       });
     }
   }
@@ -44,14 +44,4 @@ class AllPosts {
     categoryId = json['category_id'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['body'] = this.body;
-    data['post_date'] = this.postDate;
-    data['user'] = this.user;
-    data['category_id'] = this.categoryId;
-    return data;
-  }
 }

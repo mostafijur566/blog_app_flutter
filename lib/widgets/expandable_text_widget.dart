@@ -2,7 +2,7 @@ import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableTextWidget extends StatefulWidget {
-  ExpandableTextWidget({Key? key,
+  const ExpandableTextWidget({Key? key,
     required this.text
   }) : super(key: key);
 
@@ -49,7 +49,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
       child: secondHalf.isEmpty ?
       Text(
         firstHalf,
-        style: TextStyle(
+        style: const TextStyle(
           color: AppColors.smallTxtColor,
           fontSize: 16,
         ),
@@ -59,7 +59,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
           Text(
             hiddenText ? (firstHalf + '...') :
             (firstHalf + secondHalf),
-            style: TextStyle(
+            style: const TextStyle(
               color: AppColors.smallTxtColor,
               fontSize: 16,
             ),
@@ -75,7 +75,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
               children: [
                 Text(
                   hiddenText ? 'Show more' : 'Show less',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: AppColors.userNameColor,
                     fontSize: 16
                   ),

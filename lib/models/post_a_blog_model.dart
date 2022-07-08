@@ -12,11 +12,11 @@ class PostABlogModel{
   });
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user'] = this.user;
-    data['category_id'] = this.categoryId;
-    data['title'] = this.title;
-    data['body'] = this.body;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['user'] = user;
+    data['category_id'] = categoryId;
+    data['title'] = title;
+    data['body'] = body;
 
     return data;
   }

@@ -9,11 +9,9 @@ import 'package:blog_app_flutter/pages/post/post_page.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
 import 'package:blog_app_flutter/widgets/custom_loading.dart';
-import 'package:blog_app_flutter/widgets/expandable_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../controllers/auth_controller.dart';
 import '../../controllers/user_controller.dart';
 import '../../widgets/comment_widget.dart';
 import '../account/user_profile_page.dart';
@@ -33,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   int selectedItem = 0;
   int categoryId = 1;
   var user = '';
-  var postDeleteController;
+  var postDeleteController = '';
 
   loadPost(String id) async{
     await Get.find<PostController>().getPostByCategory(id);
@@ -165,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                             margin: EdgeInsets.only(
                                 left: screenWidth * 0.02,
                                 right: screenWidth * 0.02),
-                            decoration: BoxDecoration(color: Color(0xFFFDFDFD)),
+                            decoration: const BoxDecoration(color: Color(0xFFFDFDFD)),
                             child: Center(
                               child: Text(
                                 categories.categories[index].name,
@@ -188,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                 return Expanded(
                   child: post.allPostsList.isEmpty ? Container(
                     margin: EdgeInsets.only(top: screenHeight * 0.01),
-                    child: !post.isLoading ? CustomLoading() : Text('No posts available!',
+                    child: !post.isLoading ? const CustomLoading() : Text('No posts available!',
                       style: TextStyle(
                         color: AppColors.smallTxtColor,
                         fontSize: screenHeight * 0.02,
@@ -334,7 +332,7 @@ class _HomePageState extends State<HomePage> {
       child: Row(
         children: [
           Icon(item.icon, color: AppColors.mainColor, size: 20,),
-          SizedBox(
+          const SizedBox(
             width: 12,
           ),
           Text(item.text)

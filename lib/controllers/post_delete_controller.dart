@@ -19,7 +19,7 @@ class PostDeleteController extends GetxController{
     }
 
     else{
-      print('Could not delete the post');
+      Get.snackbar('Oops!', "Couldn't delete the blog!");
     }
   }
 }

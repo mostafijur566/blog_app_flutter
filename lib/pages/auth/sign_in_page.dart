@@ -1,4 +1,3 @@
-import 'package:blog_app_flutter/controllers/category_controller.dart';
 import 'package:blog_app_flutter/models/signin_body.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
 import 'package:blog_app_flutter/utils/colors.dart';
@@ -63,7 +62,6 @@ class _SignInPageState extends State<SignInPage> {
           Get.offNamed(RouteHelper.getInitial());
         }
         else{
-          print(status.message);
         }
       });
     }

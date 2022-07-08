@@ -15,10 +15,10 @@ class SignUpBody{
 
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data["name"] = this.name;
-    data["email"] = this.email;
-    data["username"] = this.username;
-    data["password"] = this.password;
+    data["name"] = name;
+    data["email"] = email;
+    data["username"] = username;
+    data["password"] = password;
     return data;
   }
 }

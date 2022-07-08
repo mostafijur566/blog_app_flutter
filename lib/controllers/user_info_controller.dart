@@ -1,5 +1,6 @@
 import 'package:blog_app_flutter/data/repository/user_info_repo.dart';
 import 'package:blog_app_flutter/models/user_info_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserInfoController extends GetxController{
@@ -25,7 +26,10 @@ class UserInfoController extends GetxController{
       update();
     }
     else{
-      print('something went wrong cannot get user info');
+      Get.snackbar('Error!', 'Something went wrong!',
+          colorText: Colors.white,
+          backgroundColor: Colors.redAccent
+      );
     }
   }
 }

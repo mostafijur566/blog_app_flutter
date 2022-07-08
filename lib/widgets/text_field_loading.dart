@@ -18,13 +18,13 @@ class TextFieldLoading extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-                offset: Offset(0, 5),
+                offset: const Offset(0, 5),
                 color: Colors.grey.withOpacity(0.2),
                 blurRadius: 2
             ),
           ]
       ),
-      child: SpinKitThreeInOut(color: AppColors.mainColor,)
+      child: const SpinKitThreeInOut(color: AppColors.mainColor,)
     );
   }
 }

@@ -24,11 +24,11 @@ class SinglePostModel{
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['body'] = this.body;
-    data['user'] = this.user;
-    data['category_id'] = this.categoryId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['title'] = title;
+    data['body'] = body;
+    data['user'] = user;
+    data['category_id'] = categoryId;
 
     return data;
   }

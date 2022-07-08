@@ -8,7 +8,7 @@ class ApiClient extends GetConnect implements GetxService{
 
   ApiClient({required this.appBaseUrl}){
     baseUrl = appBaseUrl;
-    timeout = Duration(seconds: 30);
+    timeout = const Duration(seconds: 30);
     token = AppConstants.TOKEN;
     _mainHeaders = {
       'Authorization' : 'Token $token'
@@ -27,7 +27,6 @@ class ApiClient extends GetConnect implements GetxService{
       return response;
     }
     catch(e){
-      print(e);
       return Response(statusCode: 1, statusText: e.toString());
     }
   }

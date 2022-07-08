@@ -9,10 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CommentPage extends StatefulWidget {
-  CommentPage({Key? key, required this.postID,}) : super(key: key);
+  const CommentPage({Key? key, required this.postID,}) : super(key: key);
 
   final int postID;
 
@@ -24,7 +23,7 @@ class _CommentPageState extends State<CommentPage> {
 
   TextEditingController commentController = TextEditingController();
 
-  var user;
+  var user = '';
 
   @override
   void initState(){
@@ -59,10 +58,6 @@ class _CommentPageState extends State<CommentPage> {
       DoCommentModel doCommentModel = DoCommentModel(postID: postID, userID: userID, comment: comment);
       doCommentController.doComment(doCommentModel).then((status) async{
         if(status.isSuccess){
-          print('success');
-        }
-        else{
-          print(status.message);
         }
       });
     }
@@ -70,8 +65,6 @@ class _CommentPageState extends State<CommentPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    print(widget.postID);
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -143,7 +136,7 @@ class _CommentPageState extends State<CommentPage> {
                       ),
                     ),
                   ) : ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: allComments.comments.length,

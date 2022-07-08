@@ -31,7 +31,6 @@ class PostController extends GetxController{
         _logout = true;
         update();
       }
-      print(response.statusCode);
     }
   }
 

@@ -1,7 +1,5 @@
 import 'package:blog_app_flutter/controllers/query_post_controller.dart';
-import 'package:blog_app_flutter/controllers/user_info_controller.dart';
 import 'package:blog_app_flutter/routes/route_helper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
@@ -55,7 +53,7 @@ class _UserPostPageState extends State<UserPostPage> {
             onPressed: (){
               Get.toNamed(RouteHelper.getInitial());
             },
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
           ),
         ],
         centerTitle: true,
@@ -64,7 +62,7 @@ class _UserPostPageState extends State<UserPostPage> {
       body: GetBuilder<QueryPostController>(builder: (posts){
         return Container(
           child: ListView.builder(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               //scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: posts.allPostList.length,

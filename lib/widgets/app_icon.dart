@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppIcon extends StatelessWidget {
-  AppIcon(
+  const AppIcon(
       {Key? key,
       required this.icon,
       this.backgroundColor = const Color(0xFFfcf4e4),
